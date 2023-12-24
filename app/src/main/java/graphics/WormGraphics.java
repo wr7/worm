@@ -18,16 +18,14 @@ public class WormGraphics {
   /**
    * Draws the sprite with the specified, width, height, and rotation.
    *
-   * @param sprite the sprite to draw
+   * @param image the image to draw
    * @param x the distance from the left of the window to the center of the image in pixels
    * @param y the distance from the top of the window to the center of the image in pixels
-   * @param width the desired width of the sprite in pixels
-   * @param height the desired height of the sprite in pixels
-   * @param rotation the clockwise rotation of the sprite in radians
+   * @param width the desired width of the image in pixels
+   * @param height the desired height of the image in pixels
+   * @param rotation the clockwise rotation of the image in radians
    */
-  public void drawSprite(Sprite sprite, double x, double y, int width, int height, double rotation) {
-    BufferedImage image = sprite.getImage();
-
+  public void drawImage(BufferedImage image, double x, double y, int width, int height, double rotation) {
     double scale_x = width / ((double) image.getWidth());
     double scale_y = height / ((double) image.getHeight());
 

@@ -34,9 +34,8 @@ public enum Sprite {
    *
    * Some sprites may have multiple rows where a random row should be drawn every time the sprite is rendered.
    *
-   * Additionally, some sprites may have multiple columns where the correct column number depends on the surrounding blocks,
-   * and typically, when a sprite has multiple rows, a random row is selected. The typical column scheme is 
-   * optional and is as follows:
+   * Additionally, some sprites may have multiple columns where the correct column number depends on the surrounding blocks. 
+   * The typical column scheme is optional and is as follows:
    * <ul>
    *   <li>0: The block is surrounded by air/not connected to anything</li>
    *   <li>1: The block is connected from the bottom</li>

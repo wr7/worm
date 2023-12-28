@@ -27,7 +27,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'Main'
+    mainClass = 'worm.Main'
 }
 
 run {

@@ -1,4 +1,4 @@
-package graphics;
+package worm.graphics;
 
 /**
  * Represents how a block is connected to its surrounding blocks

@@ -23,4 +23,8 @@ public class TilePosition {
 
     return new TilePosition(new_x, new_y);
   }
+
+  public boolean equals(TilePosition other) {
+    return (x == other.x) && (y == other.y);
+  }
 }

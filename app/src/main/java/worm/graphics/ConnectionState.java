@@ -64,29 +64,29 @@ public class ConnectionState {
    *
    * @see graphics.Sprite#getImages()
   */
-  public int getColumn() {
+  public ConnectedSpriteType getType() {
     switch (bits()) {
       //           LRTB
-      case (byte)0b0000: return 0;
-      case (byte)0b0001: return 1;
-      case (byte)0b0010: return 1;
-      case (byte)0b0100: return 1;
-      case (byte)0b1000: return 1;
-      case (byte)0b1010: return 2;
-      case (byte)0b1001: return 2;
-      case (byte)0b0110: return 2;
-      case (byte)0b0101: return 2;
-      case (byte)0b1100: return 3;
-      case (byte)0b0011: return 3;
-      case (byte)0b0111: return 4;
-      case (byte)0b1011: return 4;
-      case (byte)0b1101: return 4;
-      case (byte)0b1110: return 4;
-      case (byte)0b1111: return 5;
+      case (byte)0b0000: return ConnectedSpriteType.Disconnected;
+      case (byte)0b0001: return ConnectedSpriteType.SingleConnection;
+      case (byte)0b0010: return ConnectedSpriteType.SingleConnection;
+      case (byte)0b0100: return ConnectedSpriteType.SingleConnection;
+      case (byte)0b1000: return ConnectedSpriteType.SingleConnection;
+      case (byte)0b1010: return ConnectedSpriteType.LConnection;
+      case (byte)0b1001: return ConnectedSpriteType.LConnection;
+      case (byte)0b0110: return ConnectedSpriteType.LConnection;
+      case (byte)0b0101: return ConnectedSpriteType.LConnection;
+      case (byte)0b1100: return ConnectedSpriteType.StraightConnection;
+      case (byte)0b0011: return ConnectedSpriteType.StraightConnection;
+      case (byte)0b0111: return ConnectedSpriteType.TripleConnection;
+      case (byte)0b1011: return ConnectedSpriteType.TripleConnection;
+      case (byte)0b1101: return ConnectedSpriteType.TripleConnection;
+      case (byte)0b1110: return ConnectedSpriteType.TripleConnection;
+      case (byte)0b1111: return ConnectedSpriteType.Surrounded;
     }
 
     // Unreachable //
-    return 0;
+    return ConnectedSpriteType.Disconnected;
   }
 
   /**

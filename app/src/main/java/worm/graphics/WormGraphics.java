@@ -11,7 +11,11 @@ import worm.Direction;
 
 /**
  * A wrapper for drawing things for the game 'worm'.
- * The drawSprite method can be used to draw sprites to the window.
+ * <ul>
+ *   <li>The drawWorm method can be used to draw the worm to the window.</li>
+ *   <li>The drawTiles method can be used to draw the tiles.</li>
+ *   <li>The drawSprite method can be used to draw sprites to the window.</li>
+ * </ul>
 */
 public class WormGraphics {
   private final int TILE_SIZE = 64;
@@ -25,12 +29,14 @@ public class WormGraphics {
    * Draws a worm from a list of {@link TilePosition}s where the last position is the position of the head.
    *
    * @param worm_position
-   * A list of the {@link TilePosition}s that the snake occupies. This list should start and the end of the
-   * snake and end at the snake's head.
+   * A list of the {@link TilePosition}s that the worm occupies. This list should end with the worm's head
+   * and start with the worm's tail.
+   * @throws
+   * This method throws an exception if the worm is shorter than two tiles.
    */
   public void drawWorm(List<TilePosition> worm_position) {
     if(worm_position.size() <= 1) {
-      throw new RuntimeException("Snake must be at-least two tiles long");
+      throw new RuntimeException("Worm must be at-least two tiles long");
     }
 
     for(int i = 0; i < worm_position.size(); i++) {

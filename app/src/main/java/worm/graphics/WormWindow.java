@@ -43,7 +43,7 @@ public class WormWindow extends JPanel {
       {null      , Tile.Grass, Tile.Grass, Tile.Grass, Tile.Grass, Tile.Grass, },
     };
 
-    List<TilePosition> snake = Arrays.asList(new TilePosition[] {
+    List<TilePosition> worm = Arrays.asList(new TilePosition[] {
       new TilePosition(0, 5),
       new TilePosition(0, 4),
       new TilePosition(1, 4),
@@ -60,6 +60,6 @@ public class WormWindow extends JPanel {
     });
 
     wrg.drawTiles(tiles);
-    wrg.drawWorm(snake);
+    wrg.drawWorm(worm);
   }
 }

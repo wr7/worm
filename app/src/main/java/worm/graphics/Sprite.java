@@ -13,6 +13,8 @@ public enum Sprite {
   WormTurn("sprites/worm/turn.png"), 
   WormTail("sprites/worm/tail.png"),
   Grass("sprites/grass.png"),
+  GrassDecoration("sprites/grass_decorations.png"),
+  Count("sprites/count.png"),
   CaveBackground("sprites/cave_background.png"),
   SkyBackground("sprites/sky_background.png"),
   ;

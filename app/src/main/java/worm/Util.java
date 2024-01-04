@@ -1,19 +1,17 @@
 package worm;
 
+import java.util.Random;
+
 public class Util {
   /**
-   * Determinately generate a psuedo-random integer based on a non-random input value.
+   * Deterministically generate a psuedo-random integer based on a non-random input value.
   */
   public static int randomInt(int input) {
-    input ^= (input << 21);
-    input ^= (input >>> 35);
-    input ^= (input << 4);
-
-    return input;
+    return new Random(input).nextInt();
   }
 
   /**
-   * Determinately generate a psuedo-random integer within a specified range [min, max].
+   * Deterministically generate a psuedo-random integer within a specified range [min, max].
    * based on a non-random input value.
   */
   public static int randomInt(int input, int min, int max) {
@@ -25,7 +23,7 @@ public class Util {
   }
 
   /**
-   * Determinately generate a psuedo-random integer within a specified range [min, max]
+   * Deterministically generate a psuedo-random integer within a specified range [min, max]
    * based on two non-random input value.
   */
   public static int randomInt(int input1, int input2, int min, int max) {

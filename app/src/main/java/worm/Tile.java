@@ -3,8 +3,9 @@ package worm;
 import worm.graphics.Sprite;
 
 public enum Tile {
-  Grass(Sprite.Grass);
-
+  Grass(Sprite.Grass),
+  Count(Sprite.Count),
+  GrassDecoration(Sprite.GrassDecoration);
   public final Sprite sprite;
 
   private Tile(Sprite sprite) {
@@ -17,16 +18,14 @@ public enum Tile {
 
     switch(this) {
       case Grass: return other.equals(Tile.Grass);
+      default: return false;
     }
-
-    return false;
   }
 
   public boolean canConnectToEdge() {
     switch(this) {
       case Grass: return true;
+      default: return false;
     }
-
-    return false;
   }
 }

@@ -34,13 +34,13 @@ public class WormWindow extends JPanel {
     super.paintComponent(graphics);
 
     Tile[][] tiles = {
-      {null      , null      , null      , null      , null      , null      , },
-      {null      , null      , null      , null      , null      , null      , },
-      {null      , null      , null      , null      , null      , null      , },
-      {null      , null      , null      , null      , null      , null      , },
-      {null      , null      , null      , null      , null      , Tile.Grass, },
-      {null      , null      , Tile.Grass, null      , Tile.Grass, Tile.Grass, },
-      {null      , Tile.Grass, Tile.Grass, Tile.Grass, Tile.Grass, Tile.Grass, },
+      {null                , null                , null                , null                , null                , null                , },
+      {null                , null                , null                , null                , null                , null                , },
+      {null                , null                , null                , null                , Tile.GrassDecoration, Tile.GrassDecoration, },
+      {null                , null                , null                , null                , Tile.Grass          , Tile.Grass          , },
+      {null                , null                , Tile.GrassDecoration, null                , Tile.GrassDecoration, Tile.Grass          , },
+      {null                , null                , Tile.Grass          , Tile.Grass          , Tile.Grass          , Tile.Grass          , },
+      {null                , Tile.Grass          , Tile.Grass          , Tile.Grass          , Tile.Grass          , Tile.Grass          , },
     };
 
     List<TilePosition> worm = Arrays.asList(new TilePosition[] {

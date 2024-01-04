@@ -12,9 +12,9 @@ import worm.Direction;
 /**
  * A wrapper for drawing things for the game 'worm'.
  * <ul>
- *   <li>The drawWorm method can be used to draw the worm to the window.</li>
- *   <li>The drawTiles method can be used to draw the tiles.</li>
- *   <li>The drawSprite method can be used to draw sprites to the window.</li>
+ *   <li>The {@link WormGraphics#drawWorm} method can be used to draw the worm to the window.</li>
+ *   <li>The {@link WormGraphics#drawImage} method can be used to draw an image to the window.</li>
+ *   <li>The {@link WormGraphics#drawTiles} method can be used to draw the tiles.</li>
  * </ul>
 */
 public class WormGraphics {
@@ -31,12 +31,11 @@ public class WormGraphics {
    * @param worm_position
    * A list of the {@link TilePosition}s that the worm occupies. This list should end with the worm's head
    * and start with the worm's tail.
-   * @throws
-   * This method throws an exception if the worm is shorter than two tiles.
+   * @throws IllegalArgumentException If the worm is shorter than two tiles.
    */
   public void drawWorm(List<TilePosition> worm_position) {
     if(worm_position.size() <= 1) {
-      throw new RuntimeException("Worm must be at-least two tiles long");
+      throw new IllegalArgumentException("Worm must be at-least two tiles long");
     }
 
     for(int i = 0; i < worm_position.size(); i++) {

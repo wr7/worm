@@ -62,7 +62,7 @@ public class ConnectionState {
   /**
    * Gets the column index of a sprite based off of its connections to other blocks.
    *
-   * @see graphics.Sprite#getImages()
+   * @see Sprite#getImages()
   */
   public ConnectedSpriteType getType() {
     switch (bits()) {
@@ -92,7 +92,7 @@ public class ConnectionState {
   /**
    * Gets the needed clockwise rotation (radians) of a sprite based off of its connections to other blocks.
    *
-   * @see graphics.Sprite#getImages()
+   * @see Sprite#getImages()
   */
   public double getRotation() {
     switch (bits()) {

@@ -1,5 +1,14 @@
 package worm;
 
+/**
+ * Represents a possible location of a {@link Tile}.
+ * 
+ * This class contains an x and a y value where:
+ * <ul>
+ * 	<li>x=0 is at the left side of the screen. Positive x is to the right</li>
+ * 	<li>y=0 is at the top of the screen. Positive y is downwards</li>
+ * </ul>
+ */
 public class TilePosition {
   public int x;
   public int y;
@@ -9,6 +18,12 @@ public class TilePosition {
     this.y = y;
   }
 
+  /**
+   * Gets the neighboring tile in a specific direction.
+   * 
+   * For example, <code>new TilePosition(2, 3).nextInDirection(Direction.Up)</code>
+   * will return (2, 2) because (2, 2) is the tile above (2, 3).
+   */
   public TilePosition nextInDirection(Direction direction) {
     int new_x = x;
     int new_y = y;

@@ -13,9 +13,13 @@ public enum Sprite {
   WormTurn("sprites/worm/turn.png"), 
   WormTail("sprites/worm/tail.png"),
   Grass("sprites/grass.png"),
+  CaveBackground("sprites/cave_background.png"),
+  SkyBackground("sprites/sky_background.png"),
   ;
 
   private final URL url;
+
+  private static EnumMap<Sprite, BufferedImage> cached_full_images = new EnumMap<Sprite, BufferedImage>(Sprite.class);
   private static EnumMap<Sprite, BufferedImage[][]> cached_sprites = new EnumMap<Sprite, BufferedImage[][]>(Sprite.class);
 
   private Sprite(String file_path) {
@@ -23,19 +27,39 @@ public enum Sprite {
   }
 
   /**
-   * Gets the first image for a sprite.
+   * Returns the sprite as an image.
   */
-  public BufferedImage getImage() {
-    return getImages()[0][0];
+  public BufferedImage getFullImage() {
+    BufferedImage cached_image = cached_full_images.get(this);
+    if(cached_image != null) {
+      return cached_image;
+    }
+
+    try {
+      BufferedImage image = ImageIO.read(url);
+      
+      if(image == null) {
+        System.err.println("Failed to load resource '" + url + "'");
+      }
+
+      cached_full_images.put(this, image);
+
+      return image;
+    } catch(IOException exception) {
+      System.err.println("Failed to load resource '" + url + "': " + exception.toString());
+      System.exit(1);
+      return null; // UNREACHABLE because of exit above ^
+    }
   }
 
   /**
-   * Gets the images for a sprite. Note: this is a two dimensional array.
+   * Treats the sprite as a two dimensional array of images. This is useful for connectable sprites or sprites with
+   * different variants.
    *
    * Some sprites may have multiple rows where a random row should be drawn every time the sprite is rendered.
    *
    * Additionally, some sprites may have multiple columns where the correct column number depends on the surrounding blocks. 
-   * The typical column scheme is optional and is as follows:
+   * The typical column scheme is as follows:
    * <ul>
    *   <li>0: The block is surrounded by air/not connected to anything</li>
    *   <li>1: The block is connected from the bottom</li>
@@ -52,31 +76,21 @@ public enum Sprite {
       return cached_images;
     }
 
-    try {
-      BufferedImage image = ImageIO.read(url);
-      
-      if(image == null) {
-        System.err.println("Failed to load resource '" + url + "'");
+    BufferedImage image = getFullImage();
+    
+    int width = image.getWidth()/32;
+    int height = image.getHeight()/32;
+
+    BufferedImage[][] images = new BufferedImage[height][width];
+    for(int row = 0; row < height; row++) {
+      for(int col = 0; col < width; col++) {
+        BufferedImage sim = image.getSubimage(col*32, row*32, 32, 32);
+        images[row][col] = sim;
       }
-
-      int width = image.getWidth()/32;
-      int height = image.getHeight()/32;
-
-      BufferedImage[][] images = new BufferedImage[height][width];
-      for(int row = 0; row < height; row++) {
-        for(int col = 0; col < width; col++) {
-          BufferedImage sim = image.getSubimage(col*32, row*32, 32, 32);
-          images[row][col] = sim;
-        }
-      }
-
-      cached_sprites.put(this, images);
-
-      return images;
-    } catch(IOException exception) {
-      System.err.println("Failed to load resource '" + url + "': " + exception.toString());
-      System.exit(1);
-      return null; // UNREACHABLE because of exit above ^
     }
+
+    cached_sprites.put(this, images);
+
+    return images;
   }
 }

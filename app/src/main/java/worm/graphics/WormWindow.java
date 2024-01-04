@@ -34,31 +34,24 @@ public class WormWindow extends JPanel {
     super.paintComponent(graphics);
 
     Tile[][] tiles = {
-      {null      , null      , null      , Tile.Grass, Tile.Grass, null      , },
-      {null      , Tile.Grass, Tile.Grass, Tile.Grass, Tile.Grass, null      , },
-      {null      , null      , null      , null      , Tile.Grass, Tile.Grass, },
-      {Tile.Grass, null      , null      , null      , Tile.Grass, Tile.Grass, },
-      {null      , null      , Tile.Grass, null      , null      , Tile.Grass, },
-      {null      , Tile.Grass, Tile.Grass, Tile.Grass, null      , Tile.Grass, },
+      {null      , null      , null      , null      , null      , null      , },
+      {null      , null      , null      , null      , null      , null      , },
+      {null      , null      , null      , null      , null      , null      , },
+      {null      , null      , null      , null      , null      , null      , },
+      {null      , null      , null      , null      , null      , Tile.Grass, },
+      {null      , null      , Tile.Grass, null      , Tile.Grass, Tile.Grass, },
       {null      , Tile.Grass, Tile.Grass, Tile.Grass, Tile.Grass, Tile.Grass, },
     };
 
     List<TilePosition> worm = Arrays.asList(new TilePosition[] {
+      new TilePosition(0, 6),
       new TilePosition(0, 5),
-      new TilePosition(0, 4),
+      new TilePosition(1, 5),
       new TilePosition(1, 4),
       new TilePosition(1, 3),
-      new TilePosition(2, 3),
-      new TilePosition(3, 3),
-      new TilePosition(3, 2),
-      new TilePosition(2, 2),
-      new TilePosition(1, 2),
-      new TilePosition(0, 2),
-      new TilePosition(0, 1),
-      new TilePosition(0, 0),
-      new TilePosition(1, 0),
     });
 
+    wrg.drawImage(Sprite.SkyBackground.getFullImage(), this.getWidth()/2, this.getHeight()/2, this.getWidth(), this.getHeight(), 0);
     wrg.drawTiles(tiles);
     wrg.drawWorm(worm);
   }

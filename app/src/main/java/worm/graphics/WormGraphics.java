@@ -68,7 +68,7 @@ public class WormGraphics {
 
       ConnectionState connectionState = new ConnectionState(connectsTo[0],connectsTo[1],connectsTo[2],connectsTo[3]);
 
-      BufferedImage image = connectionState.getType().getWormSprite(is_head).getImage();
+      BufferedImage image = connectionState.getType().getWormSprite(is_head).getFullImage();
       double rotation = connectionState.getRotation();
       double x = TILE_SIZE * tile.x + TILE_SIZE / 2;
       double y = TILE_SIZE * tile.y + TILE_SIZE / 2;

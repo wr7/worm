@@ -4,7 +4,7 @@ import worm.graphics.Sprite;
 
 public enum Tile {
   Grass(Sprite.Grass),
-  Count(Sprite.Count),
+  Count(Sprite.Count), // For testing purposes
   GrassDecoration(Sprite.GrassDecoration);
   public final Sprite sprite;
 

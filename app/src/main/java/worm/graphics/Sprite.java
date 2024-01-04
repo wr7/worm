@@ -7,6 +7,10 @@ import java.util.EnumMap;
 
 import javax.imageio.ImageIO;
 
+/**
+ * Represents an image or a 2d array of images.
+ * @see Sprite#getImages()
+ */
 public enum Sprite {
   WormHead("sprites/worm/head.png"), 
   WormSegment("sprites/worm/segment.png"), 
@@ -14,7 +18,7 @@ public enum Sprite {
   WormTail("sprites/worm/tail.png"),
   Grass("sprites/grass.png"),
   GrassDecoration("sprites/grass_decorations.png"),
-  Count("sprites/count.png"),
+  Count("sprites/count.png"), // For testing purposes
   CaveBackground("sprites/cave_background.png"),
   SkyBackground("sprites/sky_background.png"),
   ;

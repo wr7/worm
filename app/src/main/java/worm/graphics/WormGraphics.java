@@ -8,6 +8,7 @@ import java.awt.geom.AffineTransform;
 import worm.Tile;
 import worm.TilePosition;
 import worm.Direction;
+import worm.Level;
 
 /**
  * A wrapper for drawing things for the game 'worm'.
@@ -20,9 +21,19 @@ import worm.Direction;
 public class WormGraphics {
   private final int TILE_SIZE = 64;
   private final Graphics2D g2d;
+  private final int width;
+  private final int height;
 
-  public WormGraphics(Graphics2D g2d) {
+  public WormGraphics(Graphics2D g2d, int width, int height) {
     this.g2d = g2d;
+    this.width = width;
+    this.height = height;
+  }
+
+  public void drawLevel(Level level) {
+    drawImage(level.background.getFullImage(), width/2, height/2, width, height, 0);
+    drawTiles(level.tiles);
+    drawWorm(level.worm);
   }
 
   /** 

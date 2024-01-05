@@ -29,7 +29,7 @@ public enum Sprite {
   private static EnumMap<Sprite, BufferedImage[][]> cached_sprites = new EnumMap<Sprite, BufferedImage[][]>(Sprite.class);
 
   private Sprite(String file_path) {
-    url = getClass().getResource(file_path);
+    url = getClass().getClassLoader().getResource(file_path);
   }
 
   /**

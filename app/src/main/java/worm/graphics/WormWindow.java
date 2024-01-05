@@ -9,12 +9,18 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import worm.Level;
 import worm.Tile;
 import worm.TilePosition;
 
 public class WormWindow extends JPanel {
-  public WormWindow() {
+  public Level currentLevel;
+
+  public WormWindow(Level currentLevel) {
     super();
+
+    this.currentLevel = currentLevel;
+
     JFrame frame = new JFrame("Worm");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.add(this);
@@ -29,30 +35,10 @@ public class WormWindow extends JPanel {
 
   @Override
   public void paintComponent(Graphics graphics) {
-    WormGraphics wrg = new WormGraphics((Graphics2D) graphics);
+    WormGraphics wrg = new WormGraphics((Graphics2D) graphics, getWidth(), getHeight());
 
     super.paintComponent(graphics);
 
-    Tile[][] tiles = {
-      {null                , null                , null                , null                , null                , null                , },
-      {null                , null                , null                , null                , null                , null                , },
-      {null                , null                , null                , null                , Tile.GrassDecoration, Tile.GrassDecoration, },
-      {null                , null                , null                , null                , Tile.Grass          , Tile.Grass          , },
-      {null                , null                , Tile.GrassDecoration, null                , Tile.GrassDecoration, Tile.Grass          , },
-      {null                , null                , Tile.Grass          , Tile.Grass          , Tile.Grass          , Tile.Grass          , },
-      {null                , Tile.Grass          , Tile.Grass          , Tile.Grass          , Tile.Grass          , Tile.Grass          , },
-    };
-
-    List<TilePosition> worm = Arrays.asList(new TilePosition[] {
-      new TilePosition(0, 6),
-      new TilePosition(0, 5),
-      new TilePosition(1, 5),
-      new TilePosition(1, 4),
-      new TilePosition(1, 3),
-    });
-
-    wrg.drawImage(Sprite.SkyBackground.getFullImage(), this.getWidth()/2, this.getHeight()/2, this.getWidth(), this.getHeight(), 0);
-    wrg.drawTiles(tiles);
-    wrg.drawWorm(worm);
+    wrg.drawLevel(this.currentLevel);
   }
 }

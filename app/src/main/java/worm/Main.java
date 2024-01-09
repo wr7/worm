@@ -8,7 +8,7 @@ public class Main {
         Level testLevel = new Level(
             new Tile[][]{ // tiles
                  {null                , null                , null                , null                , null                , null                , },
-                 {null                , null                , null                , null                , null                , null                , },
+                 {null                , Tile.Pear           , null                , Tile.Goal           , null                , null                , },
                  {null                , null                , null                , null                , Tile.GrassDecoration, Tile.GrassDecoration, },
                  {null                , null                , null                , null                , Tile.Grass          , Tile.Grass          , },
                  {null                , null                , Tile.GrassDecoration, null                , Tile.GrassDecoration, Tile.Grass          , },

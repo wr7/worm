@@ -5,7 +5,11 @@ import worm.graphics.Sprite;
 public enum Tile {
   Grass(Sprite.Grass),
   Count(Sprite.Count), // For testing purposes
-  GrassDecoration(Sprite.GrassDecoration);
+  GrassDecoration(Sprite.GrassDecoration),
+  Pear(Sprite.Pear),
+  Goal(Sprite.Goal),
+  ;
+
   public final Sprite sprite;
 
   private Tile(Sprite sprite) {

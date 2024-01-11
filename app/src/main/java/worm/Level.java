@@ -15,7 +15,7 @@ public class Level {
         this.worm = new ArrayList<TilePosition>(Arrays.asList(worm)); // Create ArrayList from regular array
         this.background = background;
     }
-   public static moveInDirection(){
+   public static moveInDirection(Direction d){
         if(Tile[TilePosition[0]][TilePosition[0]-1]==null){
             TilePosition.add(0,TilePosition[0].nextInDirection(Direction.Up);
             TilePosition.remove(TilePosition.size-1);

@@ -34,7 +34,7 @@ public class WormWindow extends JPanel {
 
         }
     };
-    this.getInputMap().put(KeyStroke.getKeyStroke("w"),
+    this.getInputMap().put(KeyStroke.getKeyStroke("W"),
                                 "moveUp");
     this.getActionMap().put("moveUp",
                                  moveUp);

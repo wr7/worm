@@ -18,14 +18,26 @@ public class WormWindow extends JPanel {
 
   public WormWindow(Level currentLevel) {
     super();
-
-    this.currentLevel = currentLevel;
+    
+    this.currentLevel = currentLevel
 
     JFrame frame = new JFrame("Worm");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.add(this);
     frame.pack();
     frame.setVisible(true);
+
+    Action moveUp = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+          currentLevel.moveInDirection(Direction.Up);
+          repaint();
+
+        }
+    };
+    this.getInputMap().put(KeyStroke.getKeyStroke("w"),
+                                "moveUp");
+    this.getActionMap().put("moveUp",
+                                 moveUp);
   }
 
   @Override

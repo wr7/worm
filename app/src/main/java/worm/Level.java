@@ -16,24 +16,29 @@ public class Level {
         this.background = background;
     }
    public static moveInDirection(Direction d){
+       if (d==Direction.Up){
         if(Tile[TilePosition[0]][TilePosition[0]-1]==null){
             TilePosition.add(0,TilePosition[0].nextInDirection(Direction.Up);
             TilePosition.remove(TilePosition.size-1);
         }
-    
+       }
+       if(d==Direction.Down){
         if(Tile[TilePosition[0]][TilePosition[0]+1]==null){
             TilePosition.add(0,TilePosition[0].nextInDirection(Direction.Down);
             TilePosition.remove(TilePosition.size-1);
         }
-
+       }
+       if(d==Direction.Left){
         if(Tile[TilePosition[0]-1][TilePosition[0]]==null){
             TilePosition.add(0,TilePosition[0].nextInDirection(Direction.Left);
             TilePosition.remove(TilePosition.size-1);
         }
-
-        if(Tile[TilePosition[0]+1][TilePosition[0]]==null){
+       }
+       if(d==Direction.Right){
+       if(Tile[TilePosition[0]+1][TilePosition[0]]==null){
             TilePosition.add(0,TilePosition[0].nextInDirection(Direction.Right);
             TilePosition.remove(TilePosition.size-1);
         }
+       }
     }
 }

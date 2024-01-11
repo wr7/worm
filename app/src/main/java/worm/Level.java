@@ -15,30 +15,33 @@ public class Level {
         this.worm = new ArrayList<TilePosition>(Arrays.asList(worm)); // Create ArrayList from regular array
         this.background = background;
     }
-   public static moveInDirection(Direction d){
-       if (d==Direction.Up){
-        if(Tile[TilePosition[0]][TilePosition[0]-1]==null){
-            TilePosition.add(0,TilePosition[0].nextInDirection(d);
-            TilePosition.remove(TilePosition.size-1);
-        }
+
+   public void moveInDirection(Direction d){
+     TilePosition old_worm_head = worm.get(worm.size() - 1);
+
+     if (d==Direction.Up){
+       if(tiles[old_worm_head.y-1][old_worm_head.x]==null){
+         worm.add(old_worm_head.nextInDirection(d));
+         worm.remove(0);
+      }
+     }
+     if(d==Direction.Down){
+       if(tiles[old_worm_head.y+1][old_worm_head.x]==null){
+         worm.add(old_worm_head.nextInDirection(Direction.Down));
+         worm.remove(0);
+      }
+     }
+     if(d==Direction.Left){
+       if(tiles[old_worm_head.y][old_worm_head.x-1]==null){
+         worm.add(old_worm_head.nextInDirection(Direction.Left));
+         worm.remove(0);
+      }
+     }
+     if(d==Direction.Right){
+       if(tiles[old_worm_head.y][old_worm_head.x+1]==null){
+         worm.add(old_worm_head.nextInDirection(Direction.Right));
+         worm.remove(0);
        }
-       if(d==Direction.Down){
-        if(Tile[TilePosition[0]][TilePosition[0]+1]==null){
-            TilePosition.add(0,TilePosition[0].nextInDirection(Direction.Down);
-            TilePosition.remove(TilePosition.size-1);
-        }
-       }
-       if(d==Direction.Left){
-        if(Tile[TilePosition[0]-1][TilePosition[0]]==null){
-            TilePosition.add(0,TilePosition[0].nextInDirection(Direction.Left);
-            TilePosition.remove(TilePosition.size-1);
-        }
-       }
-       if(d==Direction.Right){
-       if(Tile[TilePosition[0]+1][TilePosition[0]]==null){
-            TilePosition.add(0,TilePosition[0].nextInDirection(Direction.Right);
-            TilePosition.remove(TilePosition.size-1);
-        }
-       }
+      }
     }
 }

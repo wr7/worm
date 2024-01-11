@@ -18,7 +18,7 @@ public class Level {
    public static moveInDirection(Direction d){
        if (d==Direction.Up){
         if(Tile[TilePosition[0]][TilePosition[0]-1]==null){
-            TilePosition.add(0,TilePosition[0].nextInDirection(Direction.Up);
+            TilePosition.add(0,TilePosition[0].nextInDirection(d);
             TilePosition.remove(TilePosition.size-1);
         }
        }

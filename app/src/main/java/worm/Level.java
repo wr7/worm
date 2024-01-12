@@ -19,11 +19,13 @@ public class Level {
    public void moveInDirection(Direction d){
      TilePosition old_worm_head = worm.get(worm.size() - 1);
        boolean move = true;
-       if(tiles[old_worm_head.y-1][old_worm_head.x]==null)
-        else
+       
+       if(tiles[old_worm_head.y-1][old_worm_head.x]!=null)
            move=false;
-       if(if(tiles[old_worm_head.y-1][old_worm_head.x]==Tile.Pear)
+       
+       if(tiles[old_worm_head.y-1][old_worm_head.x]==Tile.Pear)
             move=true;
+       
        if(move=true){
          worm.add(old_worm_head.nextInDirection(d));
          worm.remove(0);

@@ -24,24 +24,18 @@ public class Level {
        boolean move = true;
        boolean grow=false;
        
-       if(tiles[new_worm_head.y][new_worm_head.x]!=null)
-           move=false;
+       if(Tile.canBlockWorm(tiles[new_worm_head.y][new_worm_head.x])) {
+            move = false;
+       }
        
        if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Pear){
-           move=true;
            grow=true;
        }
 
        for(int a=0; a<worm.size()-1; a++){
-           if(new_worm_head==worm.get(a))
+           if(new_worm_head.equals(worm.get(a)))
                move=false;
        }
-
-       if(tiles[new_worm_head.y][new_worm_head.x]==Tile.GrassDecoration)
-           move=true;
-
-       if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Goal)
-           move=true;
 
         if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Shock)
             alive=false;
@@ -55,7 +49,7 @@ public class Level {
         while(wormShouldFall()) 
             fall();
 
-       goalCheck();
+       levelClear |= goalCheck();
     }
 
     public boolean goalCheck(){
@@ -68,7 +62,8 @@ public class Level {
 
     public boolean wormShouldFall(){
         for(int a=0; a<worm.size(); a++){
-            if(worm.get(a).nextInDirection(Direction.Down)!=null)
+            TilePosition supporting_tile = worm.get(a).nextInDirection(Direction.Down);
+            if(Tile.canSupportWorm(tiles[supporting_tile.y][supporting_tile.x]))
                 return false;
         }      
 
@@ -76,7 +71,7 @@ public class Level {
     }
 
     public void fall(){
-         for(int a=0; a<worm.size()-1; a++){
+         for(int a=0; a<worm.size(); a++){
              worm.set(a, worm.get(a).nextInDirection(Direction.Down));
          }
     }

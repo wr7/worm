@@ -18,6 +18,27 @@ public enum Tile {
     this.sprite = sprite;
   }
 
+  public static boolean canSupportWorm(Tile tile) {
+    if(tile == null)
+      return false;
+
+    switch(tile) {
+      case Grass: return true;
+      case Pear: return true;
+      default: return false;
+    }
+  }
+
+  public static boolean canBlockWorm(Tile tile) {
+    if(tile == null)
+      return false;
+
+    switch(tile) {
+      case Grass: return true;
+      default: return false;
+    }
+  }
+
   public boolean canConnectTo(Tile other) {
     if(other == null)
       return false;

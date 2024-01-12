@@ -37,20 +37,26 @@ public class Level {
                move=false;
        }
 
+       if(tiles[new_worm_head.y][new_worm_head.x]==Tile.GrassDecoration)
+           move=true;
+
+       if(tile[new_worm_head.y][new_worm_head.x]==Tile.Goal)
+           move=true;
+
        if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Goal)
            levelClear=true;
 
         if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Shock)
             alive=false;
                 
-       if(move==true)
+       if(move=true)
          worm.add(new_worm_head);
 
-       if(grow==false)
+       if(grow=false)
          worm.remove(0);
 
         while(wormShouldFall()) 
-            gFall();
+            fall();
     }
 
     public boolean wormShouldFall(){
@@ -62,7 +68,7 @@ public class Level {
         return true;
     }
 
-    public void gFall(){
+    public void fall(){
          for(int a=0; a<worm.size()-1; a++){
              worm.set(a, worm.get(a).nextInDirection(Direction.Down));
          }

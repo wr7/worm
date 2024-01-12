@@ -46,16 +46,16 @@ public class Level {
         if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Shock)
             alive=false;
                 
-       if(move=true)
+       if(move==true)
          worm.add(new_worm_head);
 
-       if(grow=false && move=true)
+       if(grow==false && move==true)
          worm.remove(0);
 
         while(wormShouldFall()) 
             fall();
 
-       goalCheck():
+       goalCheck();
     }
 
     public boolean goalCheck(){

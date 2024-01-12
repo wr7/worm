@@ -60,15 +60,20 @@ public class Level {
            levelClear=true;
     }
 
-    public void fallCheck(){
+    public boolean fallCheck(){
         for(int a=0; a<worm.size()-1; a++){
-            if(worm[a].nextInDirection(Direction.Down)==null){
-                fall=true;
-                worm[a].nextInDirection(Direction.Down)
-                
-            
+            if(worm[a].nextInDirection(Direction.Down)==null)
+            else
+                return false;
+            return true;
+        }      
+    }
 
-        }
+    public void gFall(){
+         for(int a=0; a<worm.size()-1; a++){
+             worm[a].nextInDirection(Direction.Down);
+         }
+    }
         
     }
         

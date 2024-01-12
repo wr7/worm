@@ -11,6 +11,7 @@ public class Level {
     public Sprite background = Sprite.SkyBackground;
     public boolean alive=true;
     public boolean levelClear=false;
+    public boolean fall=true;
 
     public Level(Tile[][] tiles, TilePosition[] worm, Sprite background) {
         this.tiles = tiles;
@@ -20,37 +21,55 @@ public class Level {
 
    public void moveInDirection(Direction d){
      TilePosition old_worm_head = worm.get(worm.size() - 1);
+       Tile Position new_worm_head = old_worm_head.nextInDirection(d);
        boolean move = true;
        boolean grow=false;
+
+       do
+           fallCheck();
+        while(fall=true);
        
-       if(tiles[old_worm_head.y.nextInDirection(d)][old_worm_head.x.nextInDirection(d)]!=null)
+       if(tiles[new_worm_head.y][new_worm_head.x]!=null)
            move=false;
        
-       if(tiles[old_worm_head.y.nextInDirection(d)][old_worm_head.x.nextInDirection(d)]==Tile.Pear){
+       if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Pear){
            move=true;
            grow=true;
        }
 
-       for(int a=0; a<worm.size(); a++){
-           if(tiles[old_worm_head.y.nextInDirection(d)][old_worm_head.x.nextInDirection(d)]==worm[a])
+       for(int a=0; a<worm.size()-1; a++){
+           if(tiles[new_worm_head.y][new_worm_head.x]==worm[a])
                move=false;
        }
 
-       if(tiles[old_worm_head.y.nextInDirection(d)][old_worm_head.x.nextInDirection(d)]==Tile.Goal)
+       if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Goal)
            levelClear=true;
 
-       //checking if the worm hit a shock tile
-       if(tiles[old_worm_head.y.nextInDirection(d)][old_worm_head.x.nextInDirection(d)]==Tile.Shock) 
+        if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Shock)
             alive=false;
-
-       //checking if the worm hit a saw tile
-       if(tiles[old_worm_head.y.nextInDirection(d)][old_worm_head.x.nextInDirection(d)]==Tile.Saw)
-           //saw stuff
-       
+                
        if(move=true)
-         worm.add(old_worm_head.nextInDirection(d));
+         worm.add(new_worm_head);
 
        if(grow=false)
          worm.remove(0);
     }
+
+    public boolean levelClear(){
+        if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Goal)
+           levelClear=true;
+    }
+
+    public void fallCheck(){
+        for(int a=0; a<worm.size()-1; a++){
+            if(worm[a].nextInDirection(Direction.Down)==null){
+                fall=true;
+                worm[a].nextInDirection(Direction.Down)
+                
+            
+
+        }
+        
+    }
+        
 }

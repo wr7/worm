@@ -11,7 +11,6 @@ public class Level {
     public Sprite background = Sprite.SkyBackground;
     public boolean alive=true;
     public boolean levelClear=false;
-    public boolean fall=true;
 
     public Level(Tile[][] tiles, TilePosition[] worm, Sprite background) {
         this.tiles = tiles;
@@ -21,13 +20,12 @@ public class Level {
 
    public void moveInDirection(Direction d){
      TilePosition old_worm_head = worm.get(worm.size() - 1);
-       Tile Position new_worm_head = old_worm_head.nextInDirection(d);
+       TilePosition new_worm_head = old_worm_head.nextInDirection(d);
        boolean move = true;
        boolean grow=false;
 
-       do
-           fallCheck();
-        while(fall=true);
+        while(wormShouldFall()) 
+            gFall();
        
        if(tiles[new_worm_head.y][new_worm_head.x]!=null)
            move=false;
@@ -38,7 +36,7 @@ public class Level {
        }
 
        for(int a=0; a<worm.size()-1; a++){
-           if(tiles[new_worm_head.y][new_worm_head.x]==worm[a])
+           if(new_worm_head==worm.get(a))
                move=false;
        }
 
@@ -48,33 +46,28 @@ public class Level {
         if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Shock)
             alive=false;
                 
-       if(move=true)
+       if(move==true)
          worm.add(new_worm_head);
 
-       if(grow=false)
+       if(grow==false)
          worm.remove(0);
     }
 
-    public boolean levelClear(){
-        if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Goal)
-           levelClear=true;
-    }
-
-    public boolean fallCheck(){
-        for(int a=0; a<worm.size()-1; a++){
-            if(worm[a].nextInDirection(Direction.Down)==null)
-            else
+    public boolean wormShouldFall(){
+        for(int a=0; a<worm.size(); a++){
+            if(worm.get(a).nextInDirection(Direction.Down)!=null)
                 return false;
-            return true;
         }      
+
+        return true;
     }
 
     public void gFall(){
          for(int a=0; a<worm.size()-1; a++){
-             worm[a].nextInDirection(Direction.Down);
+             worm.set(a, worm.get(a).nextInDirection(Direction.Down));
          }
     }
         
-    }
+    
         
 }

@@ -29,8 +29,8 @@ public class Level {
            grow=true;
        }
 
-       for(int x=0; x<worm.size(); x++){
-           if(tiles[old_worm_head.y.nextInDirection(d)][old_worm_head.x.nextInDirection(d)]==worm[x])
+       for(int a=0; a<worm.size(); a++){
+           if(tiles[old_worm_head.y.nextInDirection(d)][old_worm_head.x.nextInDirection(d)]==worm[a])
                move=false;
        }
        

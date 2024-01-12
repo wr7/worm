@@ -21,16 +21,16 @@ public class Level {
        boolean move = true;
        boolean grow=false;
        
-       if(tiles[old_worm_head.y-1][old_worm_head.x]!=null)
+       if(tiles[old_worm_head.y.nextInDirection(d)][old_worm_head.x.nextInDirection(d)]!=null)
            move=false;
        
-       if(tiles[old_worm_head.y-1][old_worm_head.x]==Tile.Pear){
+       if(tiles[old_worm_head.y.nextInDirection(d)][old_worm_head.x.nextInDirection(d)]==Tile.Pear){
            move=true;
            grow=true;
        }
 
        for(int x=0; x<worm.size(); x++){
-           if(tiles[old_worm_head.y-1][old_worm_head.x]==worm[x])
+           if(tiles[old_worm_head.y.nextInDirection(d)][old_worm_head.x.nextInDirection(d)]==worm[x])
                move=false;
        }
        

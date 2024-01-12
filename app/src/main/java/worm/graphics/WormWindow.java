@@ -39,6 +39,42 @@ public class WormWindow extends JPanel {
                                 "moveUp");
     this.getActionMap().put("moveUp",
                                  moveUp);
+    
+    Action moveDown = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+          currentLevel.moveInDirection(Direction.Down);
+          repaint();
+        }
+    };
+
+    this.getInputMap().put(KeyStroke.getKeyStroke("S"),
+                                "moveDown");
+    this.getActionMap().put("moveDown",
+                                 moveDown);
+
+    Action moveLeft = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+          currentLevel.moveInDirection(Direction.Left);
+          repaint();
+        }
+    };
+
+    this.getInputMap().put(KeyStroke.getKeyStroke("A"),
+                                "moveLeft");
+    this.getActionMap().put("moveLeft",
+                                 moveLeft);
+    
+    Action moveRight = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+          currentLevel.moveInDirection(Direction.Right);
+          repaint();
+        }
+    };
+
+    this.getInputMap().put(KeyStroke.getKeyStroke("D"),
+                                "moveRight");
+    this.getActionMap().put("moveRight",
+                                 moveRight);
   }
 
   @Override

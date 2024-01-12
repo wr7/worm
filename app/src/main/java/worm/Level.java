@@ -23,9 +23,6 @@ public class Level {
        TilePosition new_worm_head = old_worm_head.nextInDirection(d);
        boolean move = true;
        boolean grow=false;
-
-        while(wormShouldFall()) 
-            gFall();
        
        if(tiles[new_worm_head.y][new_worm_head.x]!=null)
            move=false;
@@ -51,6 +48,9 @@ public class Level {
 
        if(grow==false)
          worm.remove(0);
+
+        while(wormShouldFall()) 
+            gFall();
     }
 
     public boolean wormShouldFall(){

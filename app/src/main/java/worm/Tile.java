@@ -7,6 +7,8 @@ public enum Tile {
   Count(Sprite.Count), // For testing purposes
   GrassDecoration(Sprite.GrassDecoration),
   Pear(Sprite.Pear),
+  Shock(Sprite.Shock),
+  Saw(Sprite.Saw),
   Goal(Sprite.Goal),
   ;
 

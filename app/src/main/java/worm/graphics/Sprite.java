@@ -20,6 +20,8 @@ public enum Sprite {
   GrassDecoration("sprites/grass_decorations.png"),
   Goal("sprites/goal.png"),
   Pear("sprites/pear.png"),
+  Saw("sprites/saw.png"),
+  Shock("sprites/electric_block.png"),
   Count("sprites/count.png"), // For testing purposes
   CaveBackground("sprites/cave_background.png"),
   SkyBackground("sprites/sky_background.png"),

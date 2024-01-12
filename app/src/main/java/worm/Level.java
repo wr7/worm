@@ -28,6 +28,11 @@ public class Level {
            move=true;
            grow=true;
        }
+
+       for(int x=0; x<worm.size(); x++){
+           if(tiles[old_worm_head.y-1][old_worm_head.x]==worm[x])
+               move=false;
+       }
        
        if(move=true)
          worm.add(old_worm_head.nextInDirection(d));

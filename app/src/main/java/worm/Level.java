@@ -9,6 +9,8 @@ public class Level {
     public Tile[][] tiles;
     public ArrayList<TilePosition> worm;
     public Sprite background = Sprite.SkyBackground;
+    public boolean alive=true;
+    public boolean levelClear=false;
 
     public Level(Tile[][] tiles, TilePosition[] worm, Sprite background) {
         this.tiles = tiles;
@@ -33,7 +35,13 @@ public class Level {
            if(tiles[old_worm_head.y.nextInDirection(d)][old_worm_head.x.nextInDirection(d)]==worm[a])
                move=false;
        }
-       
+
+       if(tiles[old_worm_head.y.nextInDirection(d)][old_worm_head.x.nextInDirection(d)]==Tile.Goal)
+           levelClear=true;
+
+        if(tiles[old_worm_head.y.nextInDirection(d)][old_worm_head.x.nextInDirection(d)]==Tile.Shock)
+            alive=false;
+                
        if(move=true)
          worm.add(old_worm_head.nextInDirection(d));
 

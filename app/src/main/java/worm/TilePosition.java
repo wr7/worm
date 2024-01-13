@@ -18,6 +18,16 @@ public class TilePosition {
     this.y = y;
   }
 
+  public boolean isOffscreen(Tile[][] tiles) {
+    if(this.x < 0 || this.y < 0)
+      return true;
+
+    if(this.y >= tiles.length || this.x >= tiles[0].length)
+      return true;
+    
+    return false;
+  }
+
   /**
    * Gets the neighboring tile in a specific direction.
    * 

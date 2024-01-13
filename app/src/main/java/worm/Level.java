@@ -23,6 +23,9 @@ public class Level {
        TilePosition new_worm_head = old_worm_head.nextInDirection(d);
        boolean move = true;
        boolean grow=false;
+
+        if(new_worm_head.isOffscreen(tiles))
+            return;
        
        if(Tile.canBlockWorm(tiles[new_worm_head.y][new_worm_head.x])) {
             move = false;
@@ -46,14 +49,20 @@ public class Level {
        if(grow==false && move==true)
          worm.remove(0);
 
-        while(wormShouldFall()) 
+        while(wormShouldFall() && alive) {
+            if(isWormOffscreen()) {
+                alive = false;
+            }
             fall();
+        }
 
        levelClear |= goalCheck();
     }
 
     public boolean goalCheck(){
         for(int a=0; a<worm.size(); a++){
+            if(worm.get(a).isOffscreen(tiles))
+                continue;
             if(tiles[worm.get(a).y][worm.get(a).x]==Tile.Goal)
                 return true;
         }
@@ -63,9 +72,22 @@ public class Level {
     public boolean wormShouldFall(){
         for(int a=0; a<worm.size(); a++){
             TilePosition supporting_tile = worm.get(a).nextInDirection(Direction.Down);
+            if(supporting_tile.isOffscreen(tiles)) {
+                continue;
+            }
             if(Tile.canSupportWorm(tiles[supporting_tile.y][supporting_tile.x]))
                 return false;
         }      
+
+        return true;
+    }
+
+    private boolean isWormOffscreen() {
+        for(TilePosition position: worm) {
+            if(!position.isOffscreen(tiles)) {
+                return false;
+            }
+        }
 
         return true;
     }

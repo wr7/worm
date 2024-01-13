@@ -29,6 +29,13 @@ public class TilePosition {
   }
 
   /**
+   * Creates an unlinked independent copy of the tile position.
+  */
+  public TilePosition clone() {
+    return new TilePosition(x, y);
+  }
+
+  /**
    * Gets the neighboring tile in a specific direction.
    * 
    * For example, <code>new TilePosition(2, 3).nextInDirection(Direction.Up)</code>

@@ -10,7 +10,7 @@ public class Level {
     public ArrayList<TilePosition> worm;
     public Sprite background = Sprite.SkyBackground;
     public boolean alive=true;
-    public boolean levelClear=false;
+    public boolean levelCleared=false;
 
     public Level(Tile[][] tiles, TilePosition[] worm, Sprite background) {
         this.tiles = tiles;
@@ -57,38 +57,50 @@ public class Level {
            grow=true;
        }
 
-       for(int a=0; a<worm.size()-1; a++){
+       for(int a=1; a<worm.size()-1; a++){
            if(new_worm_head.equals(worm.get(a)))
                move=false;
        }
 
-        if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Shock)
-            alive=false;
-                
        if(move==true)
          worm.add(new_worm_head);
 
        if(grow==false && move==true)
          worm.remove(0);
 
+        checkWormTiles();
+
         while(wormShouldFall() && alive) {
             if(isWormOffscreen()) {
                 alive = false;
             }
-            fall();
-        }
 
-       levelClear |= goalCheck();
+            // Simulate gravity //
+            fall();
+
+            checkWormTiles();
+        }
     }
 
-    public boolean goalCheck(){
-        for(int a=0; a<worm.size(); a++){
-            if(worm.get(a).isOffscreen(tiles))
+    /**
+     * Checks what tiles the worm is touching.
+     */
+    private void checkWormTiles() {
+        for(TilePosition worm_segment: worm) {
+            if(worm_segment.isOffscreen(tiles))
                 continue;
-            if(tiles[worm.get(a).y][worm.get(a).x]==Tile.Goal)
-                return true;
+
+            Tile tile = tiles[worm_segment.y][worm_segment.x];
+            if(tile == null)
+                continue;
+
+            switch(tile) {
+                case Shock: alive = false; break;
+                case Goal: levelCleared = true; break;
+                // case Saw: break; // Needs to be implemented
+                default:
+            }
         }
-        return false;
     }
 
     public boolean wormShouldFall(){
@@ -115,11 +127,8 @@ public class Level {
     }
 
     public void fall(){
-         for(int a=0; a<worm.size(); a++){
-             worm.set(a, worm.get(a).nextInDirection(Direction.Down));
+         for(TilePosition segment: worm) {
+            segment.y += 1;
          }
     }
-        
-    
-        
 }

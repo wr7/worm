@@ -11,7 +11,7 @@ public class Main {
                  {null                , Tile.Pear           , null                , Tile.Goal           , null                , null                , },
                  {null                , null                , null                , null                , Tile.GrassDecoration, Tile.GrassDecoration, },
                  {null                , null                , null                , null                , Tile.Grass          , Tile.Grass          , },
-                 {null                , null                , Tile.GrassDecoration, null                , Tile.GrassDecoration, Tile.Grass          , },
+                 {null                , null                , Tile.Shock          , null                , Tile.GrassDecoration, Tile.Grass          , },
                  {null                , null                , Tile.Grass          , Tile.Grass          , Tile.Grass          , Tile.Grass          , },
                  {null                , Tile.Grass          , Tile.Grass          , Tile.Grass          , Tile.Grass          , Tile.Grass          , },
             }, 

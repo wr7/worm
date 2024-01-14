@@ -114,7 +114,7 @@ public class Level {
     public void sawWorm(TilePosition wormHead, TilePosition segment) {
     	//Check if wormHead and segment equal or if the worm is too short
     	//If the conditions are true, then the worm will die
-    	if (wormHead.equals(segment) || worm.size() == 2) {
+    	if (wormHead.equals(segment)) {
     		alive = false;
     	}else {
     		//this look keeps removing the worm segments until it hits the stopping point
@@ -123,6 +123,10 @@ public class Level {
     		}while (!worm.get(0).equals(segment));
     		//removing the segment that is the stopping point 
     		worm.remove(0);
+
+            if(worm.size() < 2) {
+                alive = false;
+            }
     	}
     	
     }

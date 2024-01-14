@@ -86,21 +86,45 @@ public class Level {
      * Checks what tiles the worm is touching.
      */
     private void checkWormTiles() {
-        for(TilePosition worm_segment: worm) {
-            if(worm_segment.isOffscreen(tiles))
+        //for(TilePosition worm_segment: worm) {
+        for (int segNum = 0; segNum < worm.size(); segNum++) {	
+            if(worm.get(segNum).isOffscreen(tiles))
                 continue;
 
-            Tile tile = tiles[worm_segment.y][worm_segment.x];
+            Tile tile = tiles[worm.get(segNum).y][worm.get(segNum).x];
             if(tile == null)
                 continue;
 
             switch(tile) {
-                case Shock: alive = false; break;
-                case Goal: levelCleared = true; break;
-                // case Saw: break; // Needs to be implemented
+                case Shock: //if the segment is on a shock block, the worm will die
+                	alive = false; 
+                	break;
+                case Goal: //if the segment is on a goal block, the level is won
+                	levelCleared = true; 
+                	break;
+                case Saw: //if the segment is on a saw block, then 
+                	sawWorm(worm.get(worm.size() - 1), worm.get(segNum));
+                	break;
                 default:
             }
         }
+    }
+    
+    //this method performs the cutting function of the worm if it hits a saw block
+    public void sawWorm(TilePosition wormHead, TilePosition segment) {
+    	//Check if wormHead and segment equal or if the worm is too short
+    	//If the conditions are true, then the worm will die
+    	if (wormHead.equals(segment) || worm.size() == 2) {
+    		alive = false;
+    	}else {
+    		//this look keeps removing the worm segments until it hits the stopping point
+    		do { 
+    			worm.remove(0);
+    		}while (!worm.get(0).equals(segment));
+    		//removing the segment that is the stopping point 
+    		worm.remove(0);
+    	}
+    	
     }
 
     public boolean wormShouldFall(){

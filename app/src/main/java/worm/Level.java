@@ -55,6 +55,7 @@ public class Level {
        
        if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Pear){
            grow=true;
+           tiles[new_worm_head.y][new_worm_head.x] = null;
        }
 
        for(int a=1; a<worm.size()-1; a++){

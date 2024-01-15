@@ -67,7 +67,7 @@ public class Level {
         * -- ie. is there room to push the block? Is the block near the border?
         * If the conditions to move are ok, the program will move the block in the appropriate direction
         */
-       if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Goal){ ////using Goal block for now, CHANGE TO PUSH BLOCK
+       if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Goal){ //using Goal block for now, CHANGE TO PUSH BLOCK
             TilePosition new_block_position = new_worm_head.nextInDirection(d);
    			if (!new_block_position.isOffscreen(tiles)) {//checking if the block is on the border
 	   			if (tiles[new_block_position.y][new_block_position.x] == null) {//checking if there is room to push
@@ -120,14 +120,14 @@ public class Level {
      * Checks what tiles the worm is touching.
      */
     private void checkWormTiles() {
-        for (int segNum = 0; segNum < worm.size(); segNum++) {	
+        for (int segNum = 0; segNum < worm.size(); segNum++) {	//looping through each element in the worm list to scan the entire worm
             if(!alive) 
                 return;
 
             if(worm.get(segNum).isOffscreen(tiles))
                 continue;
 
-            Tile tile = tiles[worm.get(segNum).y][worm.get(segNum).x];
+            Tile tile = tiles[worm.get(segNum).y][worm.get(segNum).x]; //taking in the worm segment into a tile that we can use to compare
             if(tile == null)
                 continue;
 

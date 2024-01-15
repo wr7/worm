@@ -25,18 +25,18 @@ public enum Tile {
     switch(tile) {
       case Grass: return true;
       case Pear: return true;
-      case Goal: return true; //using Goal block for now
+      case Goal: return true; //using Goal block for now, CHANGE TO PUSH BLOCK
       default: return false;
     }
   }
-
+  
   public static boolean canBlockWorm(Tile tile) {
     if(tile == null)
       return false;
 
     switch(tile) {
       case Grass: return true;
-      case Goal: return true; //
+      case Goal: return true; //using Goal block for now, CHANGE TO PUSH BLOCK
       default: return false;
     }
   }

@@ -86,8 +86,10 @@ public class Level {
      * Checks what tiles the worm is touching.
      */
     private void checkWormTiles() {
-        //for(TilePosition worm_segment: worm) {
         for (int segNum = 0; segNum < worm.size(); segNum++) {	
+            if(!alive) 
+                return;
+
             if(worm.get(segNum).isOffscreen(tiles))
                 continue;
 
@@ -104,7 +106,8 @@ public class Level {
                 	break;
                 case Saw: //if the segment is on a saw block, then 
                 	sawWorm(worm.get(worm.size() - 1), worm.get(segNum));
-                	break;
+                    segNum = -1; // The worm length has been changed; redo all calculations
+                    continue;
                 default:
             }
         }
@@ -118,9 +121,9 @@ public class Level {
     		alive = false;
     	}else {
     		//this look keeps removing the worm segments until it hits the stopping point
-    		do { 
+    		while (!worm.get(0).equals(segment)) {
     			worm.remove(0);
-    		}while (!worm.get(0).equals(segment));
+    		}
     		//removing the segment that is the stopping point 
     		worm.remove(0);
 

@@ -68,50 +68,27 @@ public class Level {
         * If the conditions to move are ok, the program will move the block in the appropriate direction
         */
        if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Goal){ ////using Goal block for now, CHANGE TO PUSH BLOCK
-    	   
-    	   switch(d) {
-    	   		case Up:
-    	   			if (new_worm_head.y != 0) {//checking if the block is on the border
-	    	   			if (tiles[new_worm_head.y - 1][new_worm_head.x] == null) {//checking if there is room to push
+            TilePosition new_block_position = new_worm_head.nextInDirection(d);
+   			if (!new_block_position.isOffscreen(tiles)) {//checking if the block is on the border
+	   			if (tiles[new_block_position.y][new_block_position.x] == null) {//checking if there is room to push
+                    // Check if the worm is blocking the block from being pushed //
+                    boolean can_move_block = true;
+                    for(TilePosition segment: worm) {
+                        if(segment.equals(new_block_position)) {
+                            can_move_block = false;
+                            break;
+                        }
+                    }
 
-	    	   				//pushing the block
-	    	   				tiles[new_worm_head.y][new_worm_head.x] = null;
-	    	   			    tiles[new_worm_head.y - 1][new_worm_head.x] = Tile.Goal; //using Goal block for now, CHANGE TO PUSH BLOCK
-	    	   			}
-    	   			}
-    	   			break;
-    	   		case Down:
-    	   			if (new_worm_head.y != tiles.length - 1) {//checking if the block is on the border
-	    	   			if (tiles[new_worm_head.y + 1][new_worm_head.x] == null) {//checking if there is room to push
+                    if(can_move_block) {
+                        // Move block //
+    	   				tiles[new_worm_head.y][new_worm_head.x] = null;
+    	   			    tiles[new_block_position.y][new_block_position.x] = Tile.Goal; //using Goal block for now, CHANGE TO PUSH BLOCK
 
-	    	   				//pushing the block
-	    	   				tiles[new_worm_head.y][new_worm_head.x] = null;
-	    	   			    tiles[new_worm_head.y + 1][new_worm_head.x] = Tile.Goal; //using Goal block for now, CHANGE TO PUSH BLOCK
-	    	   			}
-    	   			}
-    	   			break;
-    	   		case Left:
-    	   			if (new_worm_head.x != 0) {//checking if the block is on the border
-	    	   			if (tiles[new_worm_head.y][new_worm_head.x - 1] == null) {//checking if there is room to push
-
-	    	   				//pushing the block
-	    	   				tiles[new_worm_head.y][new_worm_head.x] = null;
-	    	   			    tiles[new_worm_head.y][new_worm_head.x - 1] = Tile.Goal; //using Goal block for now, CHANGE TO PUSH BLOCK
-	    	   			}
-    	   			}
-    	   			break;
-    	   		case Right:
-    	   			if (new_worm_head.x != tiles[new_worm_head.y].length - 1) { //checking if the block is on the border
-	    	   			if (tiles[new_worm_head.y][new_worm_head.x + 1] == null) { //checking if there is room to push
-	    	   			
-	    	   				//pushing the block
-	    	   				tiles[new_worm_head.y][new_worm_head.x] = null;
-	    	   			    tiles[new_worm_head.y][new_worm_head.x + 1] = Tile.Goal; //using Goal block for now, CHANGE TO PUSH BLOCK
-	    	   			}
-    	   			}
-    	   			break;
-    	   		default:	
-    	   }
+                        move=true;
+                    }
+	   			}
+   			}
        }
 
        for(int a=1; a<worm.size()-1; a++){

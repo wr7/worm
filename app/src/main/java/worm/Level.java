@@ -53,8 +53,8 @@ public class Level {
             move = false;
        }
        
-       if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Pear){
-           grow=true;
+       if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Pear){ //checking if the worm's head made contact with the pear tile
+           grow=true; //growing the tile if contact was made
            tiles[new_worm_head.y][new_worm_head.x] = null; //getting rid of the pear once the worm eats it
        }
        

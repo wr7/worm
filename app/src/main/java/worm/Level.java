@@ -55,7 +55,51 @@ public class Level {
        
        if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Pear){
            grow=true;
-           tiles[new_worm_head.y][new_worm_head.x] = null;
+           tiles[new_worm_head.y][new_worm_head.x] = null; //getting rid of the pear once the worm eats it
+       }
+       
+       
+       /*
+        * code segment that handles the push block
+        * (using the goal block as an test object)
+        */
+       if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Goal){
+    	   
+    	   switch(d) {
+    	   		case Up:
+    	   			if (new_worm_head.y != 0) {
+	    	   			if (tiles[new_worm_head.y - 1][new_worm_head.x] == null) {
+	    	   				tiles[new_worm_head.y][new_worm_head.x] = null;
+	    	   			    tiles[new_worm_head.y - 1][new_worm_head.x] = Tile.Goal;
+	    	   			}
+    	   			}
+    	   			break;
+    	   		case Down:
+    	   			if (new_worm_head.y != tiles.length - 1) {
+	    	   			if (tiles[new_worm_head.y + 1][new_worm_head.x] == null) {
+	    	   				tiles[new_worm_head.y][new_worm_head.x] = null;
+	    	   			    tiles[new_worm_head.y + 1][new_worm_head.x] = Tile.Goal;
+	    	   			}
+    	   			}
+    	   			break;
+    	   		case Left:
+    	   			if (new_worm_head.x != 0) {
+	    	   			if (tiles[new_worm_head.y][new_worm_head.x - 1] == null) {
+	    	   				tiles[new_worm_head.y][new_worm_head.x] = null;
+	    	   			    tiles[new_worm_head.y][new_worm_head.x - 1] = Tile.Goal;
+	    	   			}
+    	   			}
+    	   			break;
+    	   		case Right:
+    	   			if (new_worm_head.x != tiles[new_worm_head.y].length - 1) {
+	    	   			if (tiles[new_worm_head.y][new_worm_head.x + 1] == null) {
+	    	   				tiles[new_worm_head.y][new_worm_head.x] = null;
+	    	   			    tiles[new_worm_head.y][new_worm_head.x + 1] = Tile.Goal;
+	    	   			}
+    	   			}
+    	   			break;
+    	   		default:	
+    	   }
        }
 
        for(int a=1; a<worm.size()-1; a++){

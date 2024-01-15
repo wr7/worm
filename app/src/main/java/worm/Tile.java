@@ -25,6 +25,7 @@ public enum Tile {
     switch(tile) {
       case Grass: return true;
       case Pear: return true;
+      case Goal: return true; //using Goal block for now
       default: return false;
     }
   }
@@ -35,6 +36,7 @@ public enum Tile {
 
     switch(tile) {
       case Grass: return true;
+      case Goal: return true; //
       default: return false;
     }
   }

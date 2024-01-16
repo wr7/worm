@@ -15,13 +15,26 @@ import worm.Direction;
 import worm.Level;
 import worm.LevelFile;
 
+/**
+ * This represents the window used to play the game. 
+ * Code for switching between/resetting levels and handling keyboard presses lives here
+ *
+ * The actual graphics code lives in WormGraphics
+*/
 public class WormWindow extends JPanel {
+  // The actual window object
   JFrame window;
 
+  // The size (height and width) of each tile in pixels
+  // THIS SHOULD BE A MULTIPLE OF 32
+  public final static int TILE_SIZE = 64;
+
+  // The current level number; 0 is the first level
   private int levelNumber = 0;
   private Level levelToResetTo;
   private Level currentLevel;
 
+  // Moves the worm and resets/switches the level if necessary
   private void move(Direction d) {
     currentLevel.moveInDirection(d);
 
@@ -37,9 +50,11 @@ public class WormWindow extends JPanel {
   public WormWindow() {
     super();
     
+    // Get the first level //
     this.levelToResetTo = LevelFile.getLevels()[0];
     currentLevel = levelToResetTo.clone();
 
+    // Create the actual window //
     window = new JFrame("Worm");
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     window.add(this);
@@ -105,9 +120,12 @@ public class WormWindow extends JPanel {
                                  moveRight);
   }
 
+  /**
+   * Resets the level and sets the appropriate window size.
+  */
   private void resetLevel() {
     currentLevel = levelToResetTo.clone();
-    setSize(levelToResetTo.tiles[0].length * 64, levelToResetTo.tiles.length * 64);
+    setSize(levelToResetTo.tiles[0].length * TILE_SIZE, levelToResetTo.tiles.length * TILE_SIZE);
     window.pack();
   }
 
@@ -124,15 +142,14 @@ public class WormWindow extends JPanel {
 
   @Override
   public Dimension getPreferredSize() {
-      return new Dimension(levelToResetTo.tiles[0].length * 64, levelToResetTo.tiles.length * 64);
+      return new Dimension(levelToResetTo.tiles[0].length * TILE_SIZE, levelToResetTo.tiles.length * TILE_SIZE);
   }
 
+  /**
+   * Called when the window needs to be redrawn.
+  */
   @Override
   public void paintComponent(Graphics graphics) {
-    // Kinda a janky place to put this, but whatever
-    if(!currentLevel.alive) {
-      resetLevel();
-    }
     WormGraphics wrg = new WormGraphics((Graphics2D) graphics, getWidth(), getHeight());
 
     super.paintComponent(graphics);

@@ -5,11 +5,20 @@ import java.util.Arrays;
 
 import worm.graphics.Sprite;
 
+/**
+ * Represents the state of a level
+*/
 public class Level {
+    // The current tiles in the level
     public Tile[][] tiles;
+    // The positions occupied by the worm (index 0 corresponds to the tail) and the head is the last element
+    // If the worm is alive, this array MUST be in order and must be longer than 1 tile
     public ArrayList<TilePosition> worm;
+    // The background used for the level
     public Sprite background = Sprite.SkyBackground;
+    // Whether or not the worm is alive
     public boolean alive=true;
+    // Whether or not the level has been beaten and the worm should move on
     public boolean levelCleared=false;
 
     public Level(Tile[][] tiles, TilePosition[] worm, Sprite background) {
@@ -40,6 +49,9 @@ public class Level {
         return new Level(tiles_clone, worm_clone, background);
     }
 
+    /**
+     * Moves the worm in a direction (up, down, left, or right)
+    */
    public void moveInDirection(Direction d){
      TilePosition old_worm_head = worm.get(worm.size() - 1);
        TilePosition new_worm_head = old_worm_head.nextInDirection(d);

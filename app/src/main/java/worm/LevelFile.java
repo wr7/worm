@@ -11,6 +11,8 @@ import worm.graphics.Sprite;
  * An instance of this enum can be constructed like so:
  *
  * LevelFile level = LevelFile.TestLevelOne;
+ *
+ * An array of all of the levels can be obtained via LevelFile.getLevels()
  */
 public enum LevelFile {
     // The possible levels. Each variant maps to a txt file in the app/src/main/resources/level directory
@@ -20,8 +22,9 @@ public enum LevelFile {
 
     // The content of the file
     // Example value:
-    //    GGG  
-    // GGGGGGGG
+    // ..2.....
+    // .01DDD..
+    // DDDDDDDD
     final String content;
 
     // Cache used for the getLevels method
@@ -46,7 +49,6 @@ public enum LevelFile {
     }
 
     public Level readLevel () {
-        // The file has already been read, so the contents of the file can be accessed through the "content" variable
         int height=0;
         int width=0;
         int i;
@@ -127,7 +129,7 @@ public enum LevelFile {
         return level;
     }
     private LevelFile(String file_path) {
-        // Horrible line of code to open the resource file and assign its contents to `content` in a jar-friendly way.
+        // Horribly complicated line of code to open the resource file and assign its contents to `content` in a jar-friendly way.
         String fcontent = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(file_path)))
             .lines().collect(Collectors.joining("\n"));
         if(!fcontent.endsWith("\n")) {

@@ -19,7 +19,7 @@ import worm.Level;
  * </ul>
 */
 public class WormGraphics {
-  private final int TILE_SIZE = 64;
+  public final static int TILE_SIZE = WormWindow.TILE_SIZE;
   private final Graphics2D g2d;
   private final int width;
   private final int height;
@@ -30,6 +30,9 @@ public class WormGraphics {
     this.height = height;
   }
 
+  /**
+   * Draws a level object
+  */
   public void drawLevel(Level level) {
     drawImage(level.background.getFullImage(), width/2, height/2, width, height, 0);
     drawTiles(level.tiles);
@@ -44,7 +47,7 @@ public class WormGraphics {
    * and start with the worm's tail.
    * @throws IllegalArgumentException If the worm is shorter than two tiles.
    */
-  public void drawWorm(List<TilePosition> worm_position) {
+  private void drawWorm(List<TilePosition> worm_position) {
     if(worm_position.size() <= 1) {
       throw new IllegalArgumentException("Worm must be at-least two tiles long");
     }
@@ -53,6 +56,8 @@ public class WormGraphics {
       TilePosition tile = worm_position.get(i);
       boolean is_head = i == worm_position.size() - 1;
 
+      // Find the previous and next tile if they exist
+      // This is needed to compute how this segment connects to the other ones
       final TilePosition[] next_and_previous_tile;
       if(i == 0) {
         next_and_previous_tile = new TilePosition[] {worm_position.get(1)};
@@ -69,16 +74,16 @@ public class WormGraphics {
       for(int j = 0; j < directions.length; j++) {
         TilePosition neighboringTile  = tile.nextInDirection(directions[j]);
 
-        if(neighboringTile.x >= 0 && neighboringTile.y >= 0) {
-          for(TilePosition tile2: next_and_previous_tile) {
-            connectsTo[j] |= tile2.equals(neighboringTile);
-          }
+        for(TilePosition tile2: next_and_previous_tile) {
+          connectsTo[j] |= tile2.equals(neighboringTile);
         }
       }
 
       ConnectionState connectionState = new ConnectionState(connectsTo[0],connectsTo[1],connectsTo[2],connectsTo[3]);
 
+      // Find the sprite that needs to be drawn for this segment
       BufferedImage image = connectionState.getType().getWormSprite(is_head).getFullImage();
+      // Calculate the position and rotation needed
       double rotation = connectionState.getRotation();
       double x = TILE_SIZE * tile.x + TILE_SIZE / 2;
       double y = TILE_SIZE * tile.y + TILE_SIZE / 2;
@@ -87,9 +92,13 @@ public class WormGraphics {
     }
   }
 
-  public void drawTiles(Tile[][] tiles) {
+  /**
+   * Draw the 2d tile array for a level. This array includes everything except the worm and the background.
+  */
+  private void drawTiles(Tile[][] tiles) {
     for(int row = 0; row < tiles.length; row++) {
       for(int col = 0; col < tiles[row].length; col++) {
+        // null represents air. Do not do anything in this case
         if(tiles[row][col] == null)
           continue;
 
@@ -100,13 +109,10 @@ public class WormGraphics {
         for(int i = 0; i < directions.length; i++) {
           TilePosition neighboringTile  = new TilePosition(col, row).nextInDirection(directions[i]);
 
-          if(
-              neighboringTile.x < tiles[0].length && neighboringTile.x >= 0 &&
-              neighboringTile.y < tiles.length && neighboringTile.y >= 0
-          ) {
-            connectsTo[i] = tiles[row][col].canConnectTo(tiles[neighboringTile.y][neighboringTile.x]);
-          } else {
+          if(neighboringTile.isOffscreen(tiles)) {
             connectsTo[i] = tiles[row][col].canConnectToEdge();
+          } else {
+            connectsTo[i] = tiles[row][col].canConnectTo(tiles[neighboringTile.y][neighboringTile.x]);
           }
         }
 

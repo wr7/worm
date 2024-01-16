@@ -22,7 +22,8 @@ public enum LevelFile {
     Entrapment("level/entrapment.txt"),
     Level4("level/fullLevel4.txt"),
     Level5("level/fullLevel5.txt"),
-    Level6("level/fullLevelEnd.txt")
+    Level6("level/fullLevel6.txt"),
+    Level7("level/fullLevelEnd.txt")
     ;
 
     // The content of the file

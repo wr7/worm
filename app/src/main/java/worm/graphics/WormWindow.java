@@ -16,6 +16,8 @@ import worm.Level;
 import worm.LevelFile;
 
 public class WormWindow extends JPanel {
+  JFrame window;
+
   private int levelNumber = 0;
   private Level levelToResetTo;
   private Level currentLevel;
@@ -36,13 +38,13 @@ public class WormWindow extends JPanel {
     super();
     
     this.levelToResetTo = LevelFile.getLevels()[0];
-    this.currentLevel = levelToResetTo.clone();
+    currentLevel = levelToResetTo.clone();
 
-    JFrame frame = new JFrame("Worm");
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.add(this);
-    frame.pack();
-    frame.setVisible(true);
+    window = new JFrame("Worm");
+    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    window.add(this);
+    window.pack();
+    window.setVisible(true);
 
     // Add keyboard bindings //
 
@@ -104,7 +106,9 @@ public class WormWindow extends JPanel {
   }
 
   private void resetLevel() {
-      currentLevel = levelToResetTo.clone();
+    currentLevel = levelToResetTo.clone();
+    setSize(levelToResetTo.tiles[0].length * 64, levelToResetTo.tiles.length * 64);
+    window.pack();
   }
 
   private void loadNextLevel() {
@@ -120,7 +124,7 @@ public class WormWindow extends JPanel {
 
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension(384, 448);
+      return new Dimension(levelToResetTo.tiles[0].length * 64, levelToResetTo.tiles.length * 64);
   }
 
   @Override

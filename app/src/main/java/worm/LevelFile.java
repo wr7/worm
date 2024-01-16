@@ -60,9 +60,6 @@ public enum LevelFile {
             }
         }
 
-        System.out.println("width: " + width);
-        System.out.println("height: " + height);
-
         i=0;
 
         Tile[][] tiles = new Tile[height][width];

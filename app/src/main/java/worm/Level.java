@@ -66,8 +66,8 @@ public class Level {
         * This code segment handles the push block.
         * First, it will check if the worm is touching a push block.
         * Then it will take the direction value that the worm is using to also determine the direction of the block.
-        * Within the switch statement, the program will check for conditions before it moves the block. 
-        * -- ie. is there room to push the block? Is the block near the border?
+        * The program will check for conditions before it moves the block. 
+        * -- ie. is there room to push the block? Would the block be pushed offscreen?
         * If the conditions to move are ok, the program will move the block in the appropriate direction
         */
        if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Push){

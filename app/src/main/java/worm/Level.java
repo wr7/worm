@@ -45,12 +45,15 @@ public class Level {
        TilePosition new_worm_head = old_worm_head.nextInDirection(d);
        boolean move = true;
        boolean grow=false;
+	   //initalize vars
 
         if(new_worm_head.isOffscreen(tiles))
             return;
+	   //stops method from running
        
        if(Tile.canBlockWorm(tiles[new_worm_head.y][new_worm_head.x])) {
             move = false;
+	//prevents worm movement if the worm will run into something
        }
        
        if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Pear){ //checking if the worm's head made contact with the pear tile
@@ -94,6 +97,7 @@ public class Level {
        for(int a=1; a<worm.size()-1; a++){
            if(new_worm_head.equals(worm.get(a)))
                move=false;
+	//prevents worm from moving into itself
        }
 
        if(move==true)
@@ -101,6 +105,7 @@ public class Level {
 
        if(grow==false && move==true)
          worm.remove(0);
+	   //moves worm in inputed direction
 
         checkWormTiles();
 
@@ -169,6 +174,7 @@ public class Level {
     }
 
     public boolean wormShouldFall(){
+	    //checks if worm is floating
         for(int a=0; a<worm.size(); a++){
             TilePosition supporting_tile = worm.get(a).nextInDirection(Direction.Down);
             if(supporting_tile.isOffscreen(tiles)) {
@@ -176,12 +182,14 @@ public class Level {
             }
             if(Tile.canSupportWorm(tiles[supporting_tile.y][supporting_tile.x]))
                 return false;
+	//returns false if there is a solid block under worm
         }      
 
         return true;
     }
 
     private boolean isWormOffscreen() {
+	    //checks if worm is offscreen
         for(TilePosition position: worm) {
             if(!position.isOffscreen(tiles)) {
                 return false;
@@ -192,6 +200,7 @@ public class Level {
     }
 
     public void fall(){
+	    //moves worm down
          for(TilePosition segment: worm) {
             segment.y += 1;
          }

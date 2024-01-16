@@ -49,12 +49,17 @@ public class Level {
         return new Level(tiles_clone, worm_clone, background);
     }
 
+
     /**
      * Moves the worm in a direction (up, down, left, or right)
     */
    public void moveInDirection(Direction d){
      TilePosition old_worm_head = worm.get(worm.size() - 1);
        TilePosition new_worm_head = old_worm_head.nextInDirection(d);
+       if(new_worm_head.equals(worm.get(worm.size() - 2))) {
+            moveBackwards();
+            return;
+        }
        boolean move = true;
        boolean grow=false;
 	   //initalize vars
@@ -216,5 +221,46 @@ public class Level {
          for(TilePosition segment: worm) {
             segment.y += 1;
          }
+    }
+
+    /**
+     * Called when the user tries to move backwards
+    */
+    private void moveBackwards() {
+        if(!alive)
+            return;
+
+        // Calculate where the new tail of the worm should be //
+        TilePosition old_worm_tail = worm.get(0);
+        TilePosition second_segment = worm.get(1);
+
+        TilePosition new_worm_tail = new TilePosition(2*old_worm_tail.x - second_segment.x, 2*old_worm_tail.y - second_segment.y);
+
+        // Check if the worm would go offscreen //
+        if(new_worm_tail.isOffscreen(tiles))
+            return;
+
+        // Check if the worm would be blocked by any tiles //
+        Tile new_tail_tile = tiles[new_worm_tail.y][new_worm_tail.x];
+        if(Tile.canBlockWorm(new_tail_tile) || Tile.canSupportWorm(new_tail_tile))
+            return;
+
+        // Move the worm backwards //
+        worm.add(0, new_worm_tail);
+        worm.remove(worm.size() - 1);
+
+        // Simulate tiles //
+        checkWormTiles();
+
+        while(wormShouldFall() && alive) {
+            if(isWormOffscreen()) {
+                alive = false;
+            }
+
+            // Simulate gravity //
+            fall();
+
+            checkWormTiles();
+        }
     }
 }

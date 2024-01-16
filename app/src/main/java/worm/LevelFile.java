@@ -55,23 +55,23 @@ public enum LevelFile {
   public Level readLevel() {
     int height = 0;
     int width = 0;
-    int i;
     int wormlength = 0;
     // A nested for loop that finds the dimensions of the level
-    for (i = 0; i < content.length(); i++) {
+    for (int i = 0; i < content.length(); i++) {
       if (content.charAt(i) == '\n') {
         height++;
       } else if (height == 0) {
         width++;
       }
     }
-    i = 0;
     // Creates a 2D array of tiles that correspond to graphical tiles
     Tile[][] tiles = new Tile[height][width];
     // A nested for loop that reads the file and assigns the corresponding graphic to that spot and
     // also finds the length of the worm.
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
+        int i = (width + 1) * y + x;
+
         if (content.charAt(i) == 'D') {
           tiles[y][x] = Tile.Grass;
         } else if (content.charAt(i) == 'd') {
@@ -88,46 +88,28 @@ public enum LevelFile {
           tiles[y][x] = Tile.Goal;
         } else if (content.charAt(i) == 'S') {
           tiles[y][x] = Tile.Saw;
-        } else if (content.charAt(i) == '9' && wormlength < 10) {
-          wormlength = 10;
-        } else if (content.charAt(i) == '8' && wormlength < 9) {
-          wormlength = 9;
-        } else if (content.charAt(i) == '7' && wormlength < 8) {
-          wormlength = 8;
-        } else if (content.charAt(i) == '6' && wormlength < 7) {
-          wormlength = 7;
-        } else if (content.charAt(i) == '5' && wormlength < 6) {
-          wormlength = 6;
-        } else if (content.charAt(i) == '4' && wormlength < 5) {
-          wormlength = 5;
-        } else if (content.charAt(i) == '3' && wormlength < 4) {
-          wormlength = 4;
-        } else if (content.charAt(i) == '2' && wormlength < 3) {
-          wormlength = 3;
-        } else if (content.charAt(i) == '1' && wormlength < 2) {
-          wormlength = 2;
+        } else if (Character.isDigit(content.charAt(i))) {
+          int digit = Character.digit(content.charAt(i), 10);
+          wormlength = Math.max(digit + 1, wormlength);
         }
-        i++;
       }
-      i++;
     }
-    i = 0;
-    // Creates an array of instances of the TilePosition class that stores the worm's position.
+
+    // Create an array of instances of the TilePosition class that stores the worm's position. //
     TilePosition[] worm = new TilePosition[wormlength];
+
     // A nested for loop that assigns the positions of each segment of the worm to the complete
     // array.
-    for (int tilenum = wormlength - 1; tilenum >= 0; tilenum--) {
-      for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-          i = (width + 1) * y + x;
-          if (Character.isDigit(content.charAt(i))) {
-            if (Character.digit(content.charAt(i), 10) == tilenum) {
-              worm[tilenum] = new TilePosition(x, y);
-            }
-          }
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width; x++) {
+        int i = (width + 1) * y + x;
+        if (Character.isDigit(content.charAt(i))) {
+          int digit = Character.digit(content.charAt(i), 10);
+          worm[digit] = new TilePosition(x, y);
         }
       }
     }
+
     // Creates a new instance of Level with all of the appropriate information
     Level level = new Level(tiles, worm, Sprite.SkyBackground);
     return level;

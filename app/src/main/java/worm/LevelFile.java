@@ -53,7 +53,6 @@ public enum LevelFile {
 
         return levels;
     }
-    
     public Level readLevel () {
         int height=0;
         int width=0;
@@ -67,12 +66,10 @@ public enum LevelFile {
                 width++;
             }
         }
-        
         i=0;
         //Creates a 2D array of tiles that correspond to graphical tiles
         Tile[][] tiles = new Tile[height][width];
-        //A nested for loop that reads the file and assigns the corresponding graphic to that spot.
-        //Also finds the length of the worm.
+        //A nested for loop that reads the file and assigns the corresponding graphic to that spot and also finds the length of the worm.
         for(int y=0; y<height;y++) {
             for(int x=0; x<width; x++) {
                 if(content.charAt(i)=='D') {

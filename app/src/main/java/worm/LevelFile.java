@@ -16,14 +16,14 @@ import worm.graphics.Sprite;
 public enum LevelFile {
   // The possible levels. Each variant maps to a txt file in the app/src/main/resources/level
   // directory
-  Level1("level/fullLevel1.txt"),
-  Level2("level/fullLevel2.txt"),
-  Level5("level/fullLevel5.txt"),
-  Level3("level/fullLevel3.txt"),
-  Level6("level/fullLevel6.txt"),
-  Level4("level/fullLevel4.txt"),
+  Level1("level/level1.txt"),
+  Pear("level/pear.txt"),
+  Push("level/push.txt"),
+  Backtrack("level/backtrack.txt"),
+  Shock("level/shock.txt"),
+  Climb("level/climb.txt"),
   Entrapment("level/entrapment.txt"),
-  Level7("level/fullLevelEnd.txt");
+  Saw("level/saw.txt");
 
   // The content of the file
   // Example value:

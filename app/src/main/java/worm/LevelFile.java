@@ -17,6 +17,8 @@ import worm.graphics.Sprite;
 public enum LevelFile {
     // The possible levels. Each variant maps to a txt file in the app/src/main/resources/level directory
     TestLevelOne("level/test1.txt"),
+    Level3("level/fullLevel3.txt"),
+    Entrapment("level/entrapment.txt"),
     TestLevelTwo("level/test2.txt"),
     ;
 

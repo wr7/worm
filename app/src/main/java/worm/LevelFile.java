@@ -39,26 +39,27 @@ public enum LevelFile {
      * Gets all of the levels as an array. This method will cache the result.
     */
     public static Level[] getLevels() {
+        //Checks if there is a level to load in, and if there is, it is sent to main. 
         if(levels != null) {
             return levels;
         }
-
+        //Creates an array that has the length of the number of levels to store all of the levels in.
         LevelFile[] files =  LevelFile.class.getEnumConstants();
         levels = new Level[files.length];
-
+        //A for loop that reads the contents of every level file in the array.
         for(int i = 0; i < levels.length; i++) {
             levels[i] = files[i].readLevel();
         }
 
         return levels;
     }
-
+    
     public Level readLevel () {
         int height=0;
         int width=0;
         int i;
         int wormlength=0;
-
+        //A nested for loop that finds the dimensions of the level
         for(i=0;i<content.length();i++) {
             if(content.charAt(i)=='\n') {
                 height++;
@@ -66,10 +67,12 @@ public enum LevelFile {
                 width++;
             }
         }
-
+        
         i=0;
-
+        //Creates a 2D array of tiles that correspond to graphical tiles
         Tile[][] tiles = new Tile[height][width];
+        //A nested for loop that reads the file and assigns the corresponding graphic to that spot.
+        //Also finds the length of the worm.
         for(int y=0; y<height;y++) {
             for(int x=0; x<width; x++) {
                 if(content.charAt(i)=='D') {
@@ -112,7 +115,9 @@ public enum LevelFile {
             i++;
         }
         i=0;
+        //Creates an array of instances of the TilePosition class that stores the worm's position.
         TilePosition[] worm = new TilePosition[wormlength];
+        //A nested for loop that assigns the positions of each segment of the worm to the complete array.
         for(int tilenum=wormlength - 1; tilenum>=0;tilenum--) {
             for(int y=0; y<height;y++) {
                 for(int x=0; x<width; x++) {
@@ -125,7 +130,7 @@ public enum LevelFile {
                 }
             }
         }    
-
+        //Creates a new instance of Level with all of the appropriate information
         Level level = new Level(
             tiles,
             worm,

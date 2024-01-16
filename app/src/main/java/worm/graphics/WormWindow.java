@@ -13,29 +13,30 @@ import javax.swing.KeyStroke;
 
 import worm.Direction;
 import worm.Level;
+import worm.LevelFile;
 
 public class WormWindow extends JPanel {
-  public Level levelToResetTo;
-  public Level currentLevel;
+  private int levelNumber = 0;
+  private Level levelToResetTo;
+  private Level currentLevel;
 
-  private Level getCurrentLevel() {
-    return currentLevel;
+  private void move(Direction d) {
+    currentLevel.moveInDirection(d);
+
+    if(currentLevel.levelCleared) {
+      loadNextLevel();
+    } else if(!currentLevel.alive) {
+      resetLevel();
+    }
+
+    repaint();
   }
 
-  /**
-  * Gets the current level. 
-  *
-  * This method HAS to exist because of weird Java shenanigans.
-    */
-  private void resetLevel() {
-      currentLevel = levelToResetTo.clone();
-  }
-
-  public WormWindow(Level currentLevel) {
+  public WormWindow() {
     super();
     
-    this.currentLevel = currentLevel;
-    this.levelToResetTo = currentLevel.clone();
+    this.levelToResetTo = LevelFile.getLevels()[0];
+    this.currentLevel = levelToResetTo.clone();
 
     JFrame frame = new JFrame("Worm");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,8 +60,7 @@ public class WormWindow extends JPanel {
 
     Action moveUp = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-          getCurrentLevel().moveInDirection(Direction.Up);
-          repaint();
+          move(Direction.Up);
         }
     };
 
@@ -71,8 +71,7 @@ public class WormWindow extends JPanel {
     
     Action moveDown = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-          getCurrentLevel().moveInDirection(Direction.Down);
-          repaint();
+          move(Direction.Down);
         }
     };
 
@@ -83,8 +82,7 @@ public class WormWindow extends JPanel {
 
     Action moveLeft = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-          getCurrentLevel().moveInDirection(Direction.Left);
-          repaint();
+          move(Direction.Left);
         }
     };
 
@@ -95,8 +93,7 @@ public class WormWindow extends JPanel {
     
     Action moveRight = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-          getCurrentLevel().moveInDirection(Direction.Right);
-          repaint();
+          move(Direction.Right);
         }
     };
 
@@ -104,6 +101,21 @@ public class WormWindow extends JPanel {
                                 "moveRight");
     this.getActionMap().put("moveRight",
                                  moveRight);
+  }
+
+  private void resetLevel() {
+      currentLevel = levelToResetTo.clone();
+  }
+
+  private void loadNextLevel() {
+    levelNumber += 1;
+    Level[] levels = LevelFile.getLevels();
+
+    if(levelNumber < levels.length) {
+      levelToResetTo = levels[levelNumber];
+    }
+
+    resetLevel();
   }
 
   @Override

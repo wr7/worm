@@ -15,6 +15,7 @@ import worm.graphics.Sprite;
 public enum LevelFile {
     // The possible levels. Each variant maps to a txt file in the app/src/main/resources/level directory
     TestLevelOne("level/test1.txt"),
+    TestLevelTwo("level/test2.txt"),
     ;
 
     // The content of the file
@@ -22,6 +23,27 @@ public enum LevelFile {
     //    GGG  
     // GGGGGGGG
     final String content;
+
+    // Cache used for the getLevels method
+    private static Level[] levels = null;
+
+    /**
+     * Gets all of the levels as an array. This method will cache the result.
+    */
+    public static Level[] getLevels() {
+        if(levels != null) {
+            return levels;
+        }
+
+        LevelFile[] files =  LevelFile.class.getEnumConstants();
+        levels = new Level[files.length];
+
+        for(int i = 0; i < levels.length; i++) {
+            levels[i] = files[i].readLevel();
+        }
+
+        return levels;
+    }
 
     public Level readLevel () {
         // The file has already been read, so the contents of the file can be accessed through the "content" variable

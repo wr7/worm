@@ -23,6 +23,7 @@ public enum LevelFile {
   Shock("level/shock.txt"),
   Climb("level/climb.txt"),
   Entrapment("level/entrapment.txt"),
+  Maze("level/maze.txt"),
   Saw("level/saw.txt");
 
   // The content of the file

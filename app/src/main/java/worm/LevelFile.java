@@ -18,11 +18,11 @@ public enum LevelFile {
   // directory
   Level1("level/fullLevel1.txt"),
   Level2("level/fullLevel2.txt"),
-  Level3("level/fullLevel3.txt"),
-  Entrapment("level/entrapment.txt"),
-  Level4("level/fullLevel4.txt"),
   Level5("level/fullLevel5.txt"),
+  Level3("level/fullLevel3.txt"),
   Level6("level/fullLevel6.txt"),
+  Level4("level/fullLevel4.txt"),
+  Entrapment("level/entrapment.txt"),
   Level7("level/fullLevelEnd.txt");
 
   // The content of the file

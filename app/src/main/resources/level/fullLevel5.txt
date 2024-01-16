@@ -1,7 +1,7 @@
-.......G
+.d.....G
+DDD....D
+DD.....D
 .......D
-.......D
-.......D
-0123.P.D
+0123dP.D
 DDDDDD.D
 DDDDDDDD

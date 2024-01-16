@@ -29,7 +29,12 @@ public class Level {
 
   /**
    * Creates an unlinked, independent copy of the level. Say we have the following two lines of
-   * code: Level l1 = new Level(...); Level l2 = l1; If we set l2.alive to false, it will also set
+   * code: 
+   * <code>
+   * Level l1 = new Level(...);
+   * Level l2 = l1;
+   * </code> 
+   * If we set l2.alive to false, it will also set
    * l1.alive to false because they both reference the same object. This method creates an unlinked
    * copy and can be used to prevent this.
    */

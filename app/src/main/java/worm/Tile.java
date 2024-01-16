@@ -2,9 +2,7 @@ package worm;
 
 import worm.graphics.Sprite;
 
-/**
- * Represents a tile (block)
-*/
+/** Represents a tile (block) */
 public enum Tile {
   Grass(Sprite.Grass),
   Count(Sprite.Count), // For testing purposes
@@ -23,57 +21,57 @@ public enum Tile {
     this.sprite = sprite;
   }
 
-  /**
-   * Whether or not the worm can fall through a tile
-  */
+  /** Whether or not the worm can fall through a tile */
   public static boolean canSupportWorm(Tile tile) {
-    if(tile == null)
-      return false;
+    if (tile == null) return false;
 
-    switch(tile) {
-      case Grass: return true;
-      case Pear: return true;
-      case Push: return true;
-      case Goal: return true;
-      default: return false;
+    switch (tile) {
+      case Grass:
+        return true;
+      case Pear:
+        return true;
+      case Push:
+        return true;
+      case Goal:
+        return true;
+      default:
+        return false;
     }
   }
-  
-  /**
-   * Whether or not the worm can move into/over a tile
-  */
+
+  /** Whether or not the worm can move into/over a tile */
   public static boolean canBlockWorm(Tile tile) {
-    if(tile == null)
-      return false;
+    if (tile == null) return false;
 
-    switch(tile) {
-      case Grass: return true;
-      case Push: return true;
-      default: return false;
+    switch (tile) {
+      case Grass:
+        return true;
+      case Push:
+        return true;
+      default:
+        return false;
     }
   }
 
-  /**
-   * Whether or not a tile can connect to another tile
-   * This is purely a cosmetic thing
-  */
+  /** Whether or not a tile can connect to another tile This is purely a cosmetic thing */
   public boolean canConnectTo(Tile other) {
-    if(other == null)
-      return false;
+    if (other == null) return false;
 
-    switch(this) {
-      case Grass: return other.equals(Tile.Grass);
-      default: return false;
+    switch (this) {
+      case Grass:
+        return other.equals(Tile.Grass);
+      default:
+        return false;
     }
   }
 
-  /**
-   * Whether or not a tile can connect to the edge of the screen
-  */
+  /** Whether or not a tile can connect to the edge of the screen */
   public boolean canConnectToEdge() {
-    switch(this) {
-      case Grass: return true;
-      default: return false;
+    switch (this) {
+      case Grass:
+        return true;
+      default:
+        return false;
     }
   }
 }

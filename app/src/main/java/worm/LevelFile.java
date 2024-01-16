@@ -78,7 +78,7 @@ public enum LevelFile {
                     wormlength=4;
                 } else if(content.charAt(i)=='2'&& wormlength<3) {
                     wormlength=3;
-                } else if(content.charAt(i)=='2'&& wormlength<2) {
+                } else if(content.charAt(i)=='1'&& wormlength<2) {
                     wormlength=2;
                 }
                 i++;

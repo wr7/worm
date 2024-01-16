@@ -8,6 +8,7 @@ public enum Tile {
   GrassDecoration(Sprite.GrassDecoration),
   Pear(Sprite.Pear),
   Shock(Sprite.Shock),
+  Push(Sprite.Push),
   Saw(Sprite.Saw),
   Goal(Sprite.Goal),
   ;
@@ -25,7 +26,8 @@ public enum Tile {
     switch(tile) {
       case Grass: return true;
       case Pear: return true;
-      case Goal: return true; //using Goal block for now, CHANGE TO PUSH BLOCK
+      case Push: return true;
+      case Goal: return true;
       default: return false;
     }
   }
@@ -36,7 +38,7 @@ public enum Tile {
 
     switch(tile) {
       case Grass: return true;
-      case Goal: return true; //using Goal block for now, CHANGE TO PUSH BLOCK
+      case Push: return true;
       default: return false;
     }
   }

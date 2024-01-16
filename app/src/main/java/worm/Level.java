@@ -70,7 +70,7 @@ public class Level {
         * -- ie. is there room to push the block? Is the block near the border?
         * If the conditions to move are ok, the program will move the block in the appropriate direction
         */
-       if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Goal){ //using Goal block for now, CHANGE TO PUSH BLOCK
+       if(tiles[new_worm_head.y][new_worm_head.x]==Tile.Push){
             TilePosition new_block_position = new_worm_head.nextInDirection(d);
    			if (!new_block_position.isOffscreen(tiles)) {//checking if the block is on the border
 	   			if (tiles[new_block_position.y][new_block_position.x] == null) {//checking if there is room to push
@@ -86,7 +86,7 @@ public class Level {
                     if(can_move_block) {
                         // Move block //
     	   				tiles[new_worm_head.y][new_worm_head.x] = null;
-    	   			    tiles[new_block_position.y][new_block_position.x] = Tile.Goal; //using Goal block for now, CHANGE TO PUSH BLOCK
+    	   			    tiles[new_block_position.y][new_block_position.x] = Tile.Push;
 
                         move=true;
                     }

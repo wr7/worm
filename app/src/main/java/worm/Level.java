@@ -56,27 +56,24 @@ public class Level {
   public void moveInDirection(Direction d) {
     TilePosition old_worm_head = worm.get(worm.size() - 1);
     TilePosition new_worm_head = old_worm_head.nextInDirection(d);
+
     if (new_worm_head.equals(worm.get(worm.size() - 2))) {
       moveBackwards();
       return;
     }
+
     boolean move = true;
     boolean grow = false;
-    // initalize vars
 
     if (new_worm_head.isOffscreen(tiles)) return;
-    // stops method from running
 
     if (Tile.canBlockWorm(tiles[new_worm_head.y][new_worm_head.x])) {
       move = false;
-      // prevents worm movement if the worm will run into something
     }
 
-    if (tiles[new_worm_head.y][new_worm_head.x]
-        == Tile.Pear) { // checking if the worm's head made contact with the pear tile
-      grow = true; // growing the tile if contact was made
-      tiles[new_worm_head.y][new_worm_head.x] =
-          null; // getting rid of the pear once the worm eats it
+    if (tiles[new_worm_head.y][new_worm_head.x] == Tile.Pear) {
+      tiles[new_worm_head.y][new_worm_head.x] = null;
+      grow = true;
     }
 
     /*
@@ -237,6 +234,14 @@ public class Level {
     // Check if the worm would be blocked by any tiles //
     Tile new_tail_tile = tiles[new_worm_tail.y][new_worm_tail.x];
     if (Tile.canBlockWorm(new_tail_tile) || Tile.canSupportWorm(new_tail_tile)) return;
+
+    // Check if the worm would be blocked by itself //
+    for(int i = 0; i < worm.size() - 1; i++) { // Skips the head because it will be removed
+      if(worm.get(i).equals(new_worm_tail)) {
+        return;
+      }
+    }
+    
 
     // Move the worm backwards //
     worm.add(0, new_worm_tail);

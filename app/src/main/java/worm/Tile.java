@@ -46,8 +46,6 @@ public enum Tile {
     switch (tile) {
       case Grass:
         return true;
-      case Push:
-        return true;
       default:
         return false;
     }

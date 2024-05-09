@@ -57,7 +57,8 @@ public enum LevelFile {
     int height = 0;
     int width = 0;
     int wormlength = 0;
-    // A nested for loop that finds the dimensions of the level
+
+    // Find the dimensions of the level
     for (int i = 0; i < content.length(); i++) {
       if (content.charAt(i) == '\n') {
         height++;
@@ -65,45 +66,41 @@ public enum LevelFile {
         width++;
       }
     }
-    // Creates a 2D array of tiles that correspond to graphical tiles
+
     Tile[][] tiles = new Tile[height][width];
-    // A nested for loop that reads the file and assigns the corresponding graphic to that spot and
-    // also finds the length of the worm.
+
+    // Parse the tiles and find the length of the worm
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
         int i = (width + 1) * y + x;
 
-        if (content.charAt(i) == 'D') {
-          tiles[y][x] = Tile.Grass;
-        } else if (content.charAt(i) == 'd') {
-          tiles[y][x] = Tile.GrassDecoration;
-        } else if (content.charAt(i) == 'F') {
-          tiles[y][x] = Tile.Pear;
-        } else if (content.charAt(i) == 'E') {
-          tiles[y][x] = Tile.Shock;
-        } else if (content.charAt(i) == 'P') {
-          tiles[y][x] = Tile.Push;
-        } else if (content.charAt(i) == '.') {
-          tiles[y][x] = null;
-        } else if (content.charAt(i) == 'G') {
-          tiles[y][x] = Tile.Goal;
-        } else if (content.charAt(i) == 'S') {
-          tiles[y][x] = Tile.Saw;
-        } else if (Character.isDigit(content.charAt(i))) {
+        if (Character.isDigit(content.charAt(i))) {
           int digit = Character.digit(content.charAt(i), 10);
           wormlength = Math.max(digit + 1, wormlength);
+
+          continue;
         }
+
+        tiles[y][x] = switch(content.charAt(i)) {
+          case 'D' -> Tile.Grass;
+          case 'd' -> Tile.GrassDecoration;
+          case 'F' -> Tile.Pear;
+          case 'E' -> Tile.Shock;
+          case 'P' -> Tile.Push;
+          case '.' -> null;
+          case 'G' -> Tile.Goal;
+          case 'S' -> Tile.Saw;
+          default -> throw new RuntimeException("Failed to load level file: invalid character '" + content.charAt(i) + "'");
+        };
       }
     }
 
-    // Create an array of instances of the TilePosition class that stores the worm's position. //
     TilePosition[] worm = new TilePosition[wormlength];
 
-    // A nested for loop that assigns the positions of each segment of the worm to the complete
-    // array.
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
         int i = (width + 1) * y + x;
+
         if (Character.isDigit(content.charAt(i))) {
           int digit = Character.digit(content.charAt(i), 10);
           worm[digit] = new TilePosition(x, y);
@@ -111,9 +108,7 @@ public enum LevelFile {
       }
     }
 
-    // Creates a new instance of Level with all of the appropriate information
-    Level level = new Level(tiles, worm, Sprite.SkyBackground);
-    return level;
+    return new Level(tiles, worm, Sprite.SkyBackground);
   }
 
   private LevelFile(String file_path) {

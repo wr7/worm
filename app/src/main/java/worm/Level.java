@@ -62,63 +62,39 @@ public class Level {
       return;
     }
 
-    boolean move = true;
-    boolean grow = false;
-
-    if (new_worm_head.isOffscreen(tiles)) return;
+    if (new_worm_head.isOffscreen(tiles)) {
+      return;
+    }
 
     if (Tile.canBlockWorm(tiles[new_worm_head.y][new_worm_head.x])) {
-      move = false;
+      return;
     }
 
-    if (tiles[new_worm_head.y][new_worm_head.x] == Tile.Pear) {
-      tiles[new_worm_head.y][new_worm_head.x] = null;
-      grow = true;
-    }
-
-    /*
-     * This code segment handles the push block.
-     * First, it will check if the worm is touching a push block.
-     * Then it will take the direction value that the worm is using to also determine the direction of the block.
-     * The program will check for conditions before it moves the block.
-     * -- ie. is there room to push the block? Would the block be pushed offscreen?
-     * If the conditions to move are ok, the program will move the block in the appropriate direction
-     */
-    if (tiles[new_worm_head.y][new_worm_head.x] == Tile.Push) {
-      TilePosition new_block_position = new_worm_head.nextInDirection(d);
-      if (!new_block_position.isOffscreen(tiles)) { // checking if the block is on the border
-        if (tiles[new_block_position.y][new_block_position.x]
-            == null) { // checking if there is room to push
-          // Check if the worm is blocking the block from being pushed //
-          boolean can_move_block = true;
-          for (TilePosition segment : worm) {
-            if (segment.equals(new_block_position)) {
-              can_move_block = false;
-              break;
-            }
-          }
-
-          if (can_move_block) {
-            // Move block //
-            tiles[new_worm_head.y][new_worm_head.x] = null;
-            tiles[new_block_position.y][new_block_position.x] = Tile.Push;
-
-            move = true;
-          }
-        }
+    // Check if worm will collide with itself //
+    for (int a = 1; a < worm.size() - 1; a++) {
+      if (new_worm_head.equals(worm.get(a))) {
+        return;
       }
     }
 
-    for (int a = 1; a < worm.size() - 1; a++) {
-      if (new_worm_head.equals(worm.get(a))) move = false;
-      // prevents worm from moving into itself
+    if (tiles[new_worm_head.y][new_worm_head.x] == Tile.Push) {
+      if(!tryPushBlock(d, new_worm_head)) {
+        return;
+      }
     }
 
-    if (move == true) worm.add(new_worm_head);
+    worm.add(new_worm_head);
 
-    if (grow == false && move == true) worm.remove(0);
-    // moves worm in inputed direction
+    if (tiles[new_worm_head.y][new_worm_head.x] == Tile.Pear) {
+      tiles[new_worm_head.y][new_worm_head.x] = null;
+    } else {
+      worm.remove(0);
+    }
 
+    simulateWorm();
+  }
+
+  private void simulateWorm() {
     checkWormTiles();
 
     while (wormShouldFall() && alive) {
@@ -162,6 +138,32 @@ public class Level {
         default:
       }
     }
+  }
+
+  /**
+   * Tries to push a push block. Returns true upon success.
+   */
+  private boolean tryPushBlock(Direction d, TilePosition block_position) {
+    TilePosition new_block_position = block_position.nextInDirection(d);
+
+    if (new_block_position.isOffscreen(tiles)) {
+      return false;
+    }
+
+    if (tiles[new_block_position.y][new_block_position.x] != null) {
+      return false;
+    }
+
+    for (TilePosition segment : worm) {
+      if (segment.equals(new_block_position)) {
+        return false;
+      }
+    }
+
+    tiles[block_position.y][block_position.x] = null;
+    tiles[new_block_position.y][new_block_position.x] = Tile.Push;
+    
+    return true;
   }
 
   // this method performs the cutting function of the worm if it hits a saw block
@@ -236,29 +238,16 @@ public class Level {
     if (Tile.canBlockWorm(new_tail_tile) || Tile.canSupportWorm(new_tail_tile)) return;
 
     // Check if the worm would be blocked by itself //
-    for(int i = 0; i < worm.size() - 1; i++) { // Skips the head because it will be removed
+    for(int i = 0; i < worm.size() - 1; i++) { // Skips the head because it will be moved
       if(worm.get(i).equals(new_worm_tail)) {
         return;
       }
     }
-    
 
     // Move the worm backwards //
     worm.add(0, new_worm_tail);
     worm.remove(worm.size() - 1);
 
-    // Simulate tiles //
-    checkWormTiles();
-
-    while (wormShouldFall() && alive) {
-      if (isWormOffscreen()) {
-        alive = false;
-      }
-
-      // Simulate gravity //
-      fall();
-
-      checkWormTiles();
-    }
+    simulateWorm();
   }
 }
